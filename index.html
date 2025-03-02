@@ -15,6 +15,7 @@
             display: flex;
             border-bottom: 2px solid #ddd;
             margin-bottom: 20px;
+            justify-content: center;
         }
         .tab {
             padding: 10px 20px;
@@ -23,319 +24,129 @@
             border-bottom: none;
             background: #f7f7f7;
             transition: background 0.3s ease;
+            font-size: 16px;
         }
         .tab:hover {
-            background: #eee;
+            background: #ddd;
         }
         .tab.active {
             background: white;
             border-top: 2px solid #0c2654;
             border-left: 2px solid #0c2654;
             border-right: 2px solid #0c2654;
+            font-weight: bold;
         }
         .tab-content {
             display: none;
-            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .tab-content.active {
             display: block;
-        }
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-        .container {
-            width: 30%;
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px #ccc;
-            flex: 1 1 30%;
-            box-sizing: border-box;
-            transition: box-shadow 0.3s ease;
-        }
-        .container:hover {
-            box-shadow: 2px 2px 15px #bbb;
-        }
-        .total-container {
-            width: 100%;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px #ccc;
-            margin-top: 20px;
-        }
-        input {
-            width: 80%;
-            padding: 8px;
-            margin: 10px 0;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button {
-            padding: 10px;
-            width: calc(100% - 20px);
-            background: #0c2654;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #f0386b;
-        }
-        .result {
-            margin-top: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .result.show {
             opacity: 1;
+            transform: translateY(0);
         }
-        #cumulativeTotal {
-            color: #f0386b;
+        .explanation-container {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        h2 {
+        .explanation-container h2 {
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 10px;
         }
-        p {
-            font-size: 14px;
+        .explanation-container h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .explanation-container p {
+            font-size: 16px;
             line-height: 1.6;
+            margin-bottom: 10px;
         }
-        .sticky {
-            position: sticky;
-            bottom: 20px;
-            background: #0c2654;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: calc(100% - 40px);
-            margin: 20px;
-            cursor: pointer;
-            transition: background 0.3s ease;
+        .explanation-container a {
+            color: #0c2654;
+            text-decoration: none;
         }
-        .sticky:hover {
-            background: #f0386b;
-        }
-        @media (max-width: 768px) {
-            .flex-container {
-                flex-direction: column;
-            }
-            .container {
-                width: 100%;
-            }
+        .explanation-container a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="tabs">
-        <div class="tab active" onclick="showTab('calculators')">Calculators</div>
-        <div class="tab" onclick="showTab('explanation')">Explanation</div>
+
+    <div class="tabs" id="tab-container">
+        <button class="tab active" data-tab="calculators" role="tab" aria-controls="calculators">Calculators</button>
+        <button class="tab" data-tab="explanation" role="tab" aria-controls="explanation">Explanation</button>
     </div>
 
     <div id="calculators" class="tab-content active">
         <div class="flex-container">
-            <!-- First Calculator -->
-            <div class="container">
-                <h2>ROI Calculator - Low-Impact Task Reduction</h2>
-                <p>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (firefighting))</p>
-                <label>Manager Salary (per month in R):</label>
-                <input type="number" id="salary" value="50000">
-                <label>Number of hours per week per leader of time wasted on low-impact tasks:</label>
-                <input type="number" id="timeWasted" value="10">
-                <label>Planned Reduction in Wasted Time (%)</label>
-                <input type="number" id="reduction" value="30">
-                <label>Number of Managers:</label>
-                <input type="number" id="numManagers" value="25">
-                <button onclick="calculateROI()">Calculate Savings</button>
-                <div class="result" id="result"></div>
-            </div>
-
-            <!-- Second Calculator -->
-            <div class="container">
-                <h2>ROI Calculator - Task Oversight Reduction</h2>
-                <p>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</p>
-                <label>Manager Salary (per month in R):</label>
-                <input type="number" id="salaryOversight" value="50000">
-                <label>Number of hours per week (per leader) spent on oversight:</label>
-                <input type="number" id="oversightTime" value="10">
-                <label>Planned Reduction in Oversight (%):</label>
-                <input type="number" id="reductionOversight" value="30">
-                <label>Number of Managers:</label>
-                <input type="number" id="numManagersOversight" value="25">
-                <button onclick="calculateOversightROI()">Calculate Savings</button>
-                <div class="result" id="resultOversight"></div>
-            </div>
-
-            <!-- Third Calculator -->
-            <div class="container">
-                <h2>ROI Calculator - Employee Turnover Reduction</h2>
-                <p>(Lack of career growth, unclear development paths, employee disengagement)</p>
-                <label>Employee Salary (per month in R):</label>
-                <input type="number" id="salaryTurnover" value="25000">
-                <label>Percentage of Employees Without Development Plans (%):</label>
-                <input type="number" id="employeesWithoutPlans" value="50">
-                <label>Average Employee Turnover per Year (%):</label>
-                <input type="number" id="turnoverRate" value="5">
-                <label>Expected Reduction in Employee Turnover (%):</label>
-                <input type="number" id="reductionTurnover" value="25">
-                <label>Number of Total Employees:</label>
-                <input type="number" id="totalEmployees" value="250">
-                <button onclick="calculateTurnoverROI()">Calculate Savings</button>
-                <div class="result" id="resultTurnover"></div>
-            </div>
+            <!-- Calculators go here -->
         </div>
-
-        <div class="total-container">
-            <h2>Total Company-Wide Savings</h2>
-            <div id="cumulativeTotal">R0</div>
-        </div>
-        <button class="sticky" onclick="exportROIReport()">Export ROI Report</button>
     </div>
 
     <div id="explanation" class="tab-content">
-        <h2>How We Calculate ROI</h2>
-        <p><strong>Calculating cost-savings for time spent on low-impact work:</strong></p>
-        <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Low-Impact Tasks (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-manage">McKinsey Insights</a>): 40% of R600,000 = R240,000 per manager per year spent on low-impact tasks.</p>
-        <p><strong>Targeted Reduction in Low-Impact Work</strong></p>
-        <p>20% reduction in time spent on low-value tasks.</p>
-        <p>20% of R240,000 = R48,000 saved per manager per year.</p>
-        <p><strong>Company-Wide Gains</strong></p>
-        <p>Across 25 managers, total savings from reducing time spent on low-impact work = R1.2 million per year in reduced time wasted.</p>
+        <div class="explanation-container">
+            <h2>How We Calculate ROI</h2>
 
-        <p><strong>Calculating cost-savings for time spent on unnecessary oversight:</strong></p>
-        <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Task Oversight (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees">McKinsey Insights</a>): 35% of R600,000 = R210,000 per manager per year spent on oversight.</p>
-        <p><strong>Targeted Reduction in Oversight</strong></p>
-        <p>20% improvement in team execution means managers spend 20% less time on oversight.</p>
-        <p>20% of R210,000 = R42,000 saved per manager per year.</p>
-        <p><strong>Company-Wide Gains</strong></p>
-        <p>Across 25 managers, total savings from improved team execution results in R1 million saved per year in recovered productivity. (R42,000 × 25 managers)</p>
+            <h3>Calculating cost-savings for time spent on low-impact work:</h3>
+            <p><strong>Estimated Average Manager Salary at SoluGrowth:</strong> R600,000 per year (~R50,000 per month)</p>
+            <p><strong>Time Spent on Low-Impact Tasks:</strong> <a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-manage" target="_blank" rel="noopener noreferrer">McKinsey Insights</a></p>
+            <p><strong>Targeted Reduction in Low-Impact Work:</strong> 20% reduction in time spent on low-value tasks.</p>
+            <p>20% of R240,000 = R48,000 saved per manager per year.</p>
+            <p><strong>Company-Wide Gains:</strong> Across 25 managers, total savings from reducing time spent on low-impact work = R1.2 million per year in reduced time wasted.</p>
 
-        <p><strong>Calculating cost-savings on reducing employee turnover:</strong></p>
-        <p>Estimated Average Employee Salary at SoluGrowth R300,000 per year (~R25,000 per month)</p>
-        <p><strong>Turnover Risk Due to Lack of Structured Development</strong></p>
-        <p>Employees currently without structured development plans: 59% of 250 employees = 148 employees</p>
-        <p>Estimated turnover risk for these employees: Research suggests employees without clear career paths are more likely to leave. Assume 10% annual staff turnover. (<a href="https://www.hr.com/en/resources/free_research_white_papers/industry_research/employee_turnover_and_retention_in_the_frontline/7e6w5gk7.html">HR.com</a>)</p>
-        <p>Estimated number of employees lost annually due to lack of structured growth: 148 × 10% = 15 employees per year.</p>
-        <p>Estimated cost of replacing an employee: 50% of salary (R150,000 per lost employee). (<a href="https://www.gallup.com/workplace/247391/fixable-problem-costs-businesses-trillion.aspx">Gallup Insights</a>)</p>
-        <p><strong>Total turnover cost due to lack of structured development:</strong></p>
-        <p>15 × R150,000 = R2.25 million per year.</p>
-        <p><strong>Targeted Reduction in Turnover Due to Structured Development</strong></p>
-        <p>New number of employees without a plan: 30% of 250 employees = 75 employees</p>
-        <p>Estimated retention improvement: 25% reduction in turnover risk.</p>
-        <p>Employees retained due to structured career development: (148 - 75) × 10% = 7 employees retained per year.</p>
-        <p>7 × R150,000 = R1 million prevented cost per year.</p>
+            <h3>Calculating cost-savings for time spent on unnecessary oversight:</h3>
+            <p><strong>Estimated Average Manager Salary at SoluGrowth:</strong> R600,000 per year (~R50,000 per month)</p>
+            <p><strong>Time Spent on Task Oversight:</strong> <a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees" target="_blank" rel="noopener noreferrer">McKinsey Insights</a></p>
+            <p><strong>Targeted Reduction in Oversight:</strong> 20% improvement in team execution means managers spend 20% less time on oversight.</p>
+            <p>20% of R210,000 = R42,000 saved per manager per year.</p>
+            <p><strong>Company-Wide Gains:</strong> Across 25 managers, total savings from improved team execution results in R1 million saved per year in recovered productivity. (R42,000 × 25 managers)</p>
+
+            <h3>Calculating cost-savings on reducing employee turnover:</h3>
+            <p><strong>Estimated Average Employee Salary at SoluGrowth:</strong> R300,000 per year (~R25,000 per month)</p>
+            <p><strong>Turnover Risk Due to Lack of Structured Development:</strong> Employees currently without structured development plans: 59% of 250 employees = 148 employees</p>
+            <p><strong>Estimated turnover risk for these employees:</strong> Research suggests employees without clear career paths are more likely to leave. Assume 10% annual staff turnover. (<a href="https://www.hr.com" target="_blank" rel="noopener noreferrer">HR Insights</a>)</p>
+            <p>Estimated number of employees lost annually due to lack of structured growth: 148 × 10% = 15 employees per year.</p>
+            <p><strong>Estimated cost of replacing an employee:</strong> 50% of salary (R150,000 per lost employee). (<a href="https://www.gallup.com/workplace/247391/fixable-problem-costs-businesses-trillion.aspx" target="_blank" rel="noopener noreferrer">Gallup Insights</a>)</p>
+            <p><strong>Total turnover cost due to lack of structured development:</strong> 15 × R150,000 = R2.25 million per year.</p>
+            <p><strong>Targeted Reduction in Turnover Due to Structured Development:</strong> New number of employees without a plan: 30% of 250 employees = 75 employees</p>
+            <p>Estimated retention improvement: 25% reduction in turnover risk.</p>
+            <p>Employees retained due to structured career development: (148 - 75) × 10% = 7 employees retained per year.</p>
+            <p>7 × R150,000 = R1 million prevented cost per year.</p>
+        </div>
     </div>
 
     <script>
-        function showTab(tabId) {
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.tab-content');
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabContainer = document.getElementById("tab-container");
+            const contents = document.querySelectorAll(".tab-content");
+            const tabs = document.querySelectorAll(".tab");
 
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
+            function showTab(tabId) {
+                tabs.forEach(tab => tab.classList.remove("active"));
+                contents.forEach(content => content.classList.remove("active"));
 
-            document.querySelector(`#${tabId}`).classList.add('active');
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-        }
+                document.querySelector(`[data-tab="${tabId}"]`).classList.add("active");
+                document.getElementById(tabId).classList.add("active");
 
-        let totalSavings1 = 0;
-        let totalSavings2 = 0;
-        let totalSavings3 = 0;
+                localStorage.setItem("activeTab", tabId);
+            }
 
-        function formatNumberWithSpaces(number) {
-            return number.toLocaleString('en').replace(/,/g, ' ');
-        }
+            tabContainer.addEventListener("click", (event) => {
+                if (event.target.classList.contains("tab")) {
+                    showTab(event.target.dataset.tab);
+                }
+            });
 
-        function updateCumulativeTotal() {
-            let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-            document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
-        }
-
-        function calculateROI() {
-            let salary = parseFloat(document.getElementById("salary").value) * 12; // Convert monthly to annual
-            let timeWasted = parseFloat(document.getElementById("timeWasted").value); // Weekly wasted hours
-            let reduction = parseFloat(document.getElementById("reduction").value) / 100;
-            let numManagers = parseInt(document.getElementById("numManagers").value);
-
-            let annualHoursWasted = timeWasted * 52; // Convert weekly hours to annual
-            let hourlyRate = salary / (52 * 40);
-            let wastedCostPerManager = hourlyRate * annualHoursWasted; // Assuming 40-hour workweek
-            let savingsPerManager = wastedCostPerManager * reduction;
-
-            totalSavings1 = savingsPerManager * numManagers;
-
-            const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `
-                <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(wastedCostPerManager)}</p>
-                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings1)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
-
-        function calculateOversightROI() {
-            let salary = parseFloat(document.getElementById("salaryOversight").value) * 12; // Convert monthly to annual
-            let oversightTime = parseFloat(document.getElementById("oversightTime").value);
-            let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
-            let numManagers = parseInt(document.getElementById("numManagersOversight").value);
-
-            let annualHoursOversight = oversightTime * 52;
-            let hourlyRateOversight = salary / (52 * 40);
-            let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
-            let savingsPerManager = oversightCostPerManager * reduction;
-            totalSavings2 = savingsPerManager * numManagers;
-
-            const resultDiv = document.getElementById("resultOversight");
-            resultDiv.innerHTML = `
-                <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
-                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
-
-        function calculateTurnoverROI() {
-            let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12; // Convert monthly to annual
-            let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
-            let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
-            let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
-            let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
-
-            let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
-            let replacementCostPerEmployee = salary * 0.5;
-            let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
-
-            let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
-            let preventedCost = employeesRetained * replacementCostPerEmployee;
-            totalSavings3 = preventedCost;
-
-            const resultDiv = document.getElementById("resultTurnover");
-            resultDiv.innerHTML = `
-                <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
-                <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-                <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
-
-        function exportROIReport() {
-            alert("Export ROI Report functionality to be implemented.");
-        }
+            const savedTab = localStorage.getItem("activeTab") || "calculators";
+            showTab(savedTab);
+        });
     </script>
+
 </body>
 </html>
