@@ -17,7 +17,7 @@
 <body>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 20px; width: 100%;">
     <div class="container">
-        <h2>ROI Calculator - Low-Impact Task Reduction <br><small>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (\firefighting\))</small></h3>
+        <h2>ROI Calculator - Low-Impact Task Reduction <br><small>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving \(firefighting\))</small></h2>
         <label>Manager Salary (per month in R):</label>
         <input type="number" id="salary" value="50000">
         
@@ -59,7 +59,7 @@
     </script>
     </div>
     <div class="container">
-        <h2>ROI Calculator - Task Oversight Reduction <br><small>(Monitoring & check-ins, non-essential decision making, over-involvement in execution)</small></h3>
+        <h2>ROI Calculator - Task Oversight Reduction <br><small>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</small></h2>
         <label>Manager Salary (per month in R):</label>
         <input type="number" id="salaryOversight" value="50000">
         
@@ -94,6 +94,51 @@
                 <p>Yearly Cost of Oversight per Manager: R${oversightCostPerManager.toLocaleString()}</p>
                 <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
                 <p>Total Company-Wide Savings: R${totalSavings.toLocaleString()}</p>
+            `;
+        }
+    </script>
+    <div class="container">
+        <h2>ROI Calculator - Employee Turnover Reduction <br><small>(Lack of career growth, unclear development paths, employee disengagement)</small></h2>
+        <label>Employee Salary (per month in R):</label>
+        <input type="number" id="salaryTurnover" value="25000">
+        
+        <label>Number of Employees Without Development Plans:</label>
+        <input type="number" id="employeesWithoutPlans" value="148">
+        
+        <label>Annual Turnover Rate for These Employees (%):</label>
+        <input type="number" id="turnoverRate" value="10">
+        
+        <label>Targeted Reduction in Turnover Risk (%):</label>
+        <input type="number" id="reductionTurnover" value="25">
+        
+        <label>Number of Total Employees:</label>
+        <input type="number" id="totalEmployees" value="250">
+        
+        <button onclick="calculateTurnoverROI()">Calculate Savings</button>
+        
+        <div class="result" id="resultTurnover"></div>
+    </div>
+
+    <script>
+        function calculateTurnoverROI() {
+            let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12; // Convert monthly to annual
+            let employeesWithoutPlans = parseInt(document.getElementById("employeesWithoutPlans").value);
+            let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
+            let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
+            let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
+            
+            let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
+            let replacementCostPerEmployee = salary * 0.5;
+            let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
+            
+            let newEmployeesWithoutPlans = totalEmployees * 0.30;
+            let employeesRetained = (employeesWithoutPlans - newEmployeesWithoutPlans) * turnoverRate;
+            let preventedCost = employeesRetained * replacementCostPerEmployee;
+            
+            document.getElementById("resultTurnover").innerHTML = `
+                <p>Annual Cost of Turnover Due to Lack of Development: R${totalTurnoverCost.toLocaleString()}</p>
+                <p>Employees Retained Through Development Plans: ${employeesRetained.toLocaleString()}</p>
+                <p>Total Prevented Cost Per Year: R${preventedCost.toLocaleString()}</p>
             `;
         }
     </script>
