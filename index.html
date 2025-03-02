@@ -126,6 +126,31 @@
         .sticky:hover {
             background: #f0386b;
         }
+        .accordion {
+            width: 100%;
+            cursor: pointer;
+            padding: 18px;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s ease;
+            background-color: #f7f7f7;
+            margin-bottom: 10px;
+        }
+        .accordion:hover,
+        .accordion.active {
+            background-color: #eee;
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .panel.show {
+            display: block;
+        }
         @media (max-width: 768px) {
             .flex-container {
                 flex-direction: column;
@@ -204,38 +229,44 @@
 
     <div id="explanation" class="tab-content">
         <h2>How We Calculate ROI</h2>
-        <p><strong>Calculating cost-savings for time spent on low-impact work:</strong></p>
-        <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Low-Impact Tasks (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-managers">McKinsey Report</a>)</p>
-        <p><strong>Targeted Reduction in Low-Impact Work</strong></p>
-        <p>20% reduction in time spent on low-value tasks.</p>
-        <p>20% of R240,000 = R48,000 saved per manager per year.</p>
-        <p><strong>Company-Wide Gains</strong></p>
-        <p>Across 25 managers, total savings from reducing time spent on low-impact work = R1.2 million per year in reduced time wasted.</p>
+        <button class="accordion">Calculating cost-savings for time spent on low-impact work</button>
+        <div class="panel">
+            <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
+            <p>Time Spent on Low-Impact Tasks (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-managers">McKinsey Report</a>)</p>
+            <p><strong>Targeted Reduction in Low-Impact Work</strong></p>
+            <p>20% reduction in time spent on low-value tasks.</p>
+            <p>20% of R240,000 = R48,000 saved per manager per year.</p>
+            <p><strong>Company-Wide Gains</strong></p>
+            <p>Across 25 managers, total savings from reducing time spent on low-impact work = R1.2 million per year in reduced time wasted.</p>
+        </div>
 
-        <p><strong>Calculating cost-savings for time spent on unnecessary oversight:</strong></p>
-        <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Task Oversight (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees">McKinsey Insight</a>)</p>
-        <p><strong>Targeted Reduction in Oversight</strong></p>
-        <p>20% improvement in team execution means managers spend 20% less time on oversight.</p>
-        <p>20% of R210,000 = R42,000 saved per manager per year.</p>
-        <p><strong>Company-Wide Gains</strong></p>
-        <p>Across 25 managers, total savings from improved team execution results in R1 million saved per year in recovered productivity. (R42,000 × 25 managers)</p>
+        <button class="accordion">Calculating cost-savings for time spent on unnecessary oversight</button>
+        <div class="panel">
+            <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
+            <p>Time Spent on Task Oversight (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees">McKinsey Insight</a>)</p>
+            <p><strong>Targeted Reduction in Oversight</strong></p>
+            <p>20% improvement in team execution means managers spend 20% less time on oversight.</p>
+            <p>20% of R210,000 = R42,000 saved per manager per year.</p>
+            <p><strong>Company-Wide Gains</strong></p>
+            <p>Across 25 managers, total savings from improved team execution results in R1 million saved per year in recovered productivity. (R42,000 × 25 managers)</p>
+        </div>
 
-        <p><strong>Calculating cost-savings on reducing employee turnover:</strong></p>
-        <p>Estimated Average Employee Salary at SoluGrowth R300,000 per year (~R25,000 per month)</p>
-        <p><strong>Turnover Risk Due to Lack of Structured Development</strong></p>
-        <p>Employees currently without structured development plans: 59% of 250 employees = 148 employees</p>
-        <p>Estimated turnover risk for these employees: Research suggests employees without clear career paths are more likely to leave. Assume 10% annual staff turnover. (<a href="https://www.hrexchangenetwork.com/hr-talent-management/articles/turnover-rates-in-2023-and-how-to-reduce-employee-turnover">HR Exchange Network</a>)</p>
-        <p>Estimated number of employees lost annually due to lack of structured growth: 148 × 10% = 15 employees per year.</p>
-        <p>Estimated cost of replacing an employee: 50% of salary (R150,000 per lost employee). (<a href="https://www.gallup.com/workplace/247391/fixable-problem-costs-businesses-trillion.aspx">Gallup Report</a>)</p>
-        <p><strong>Total turnover cost due to lack of structured development:</strong></p>
-        <p>15 × R150,000 = R2.25 million per year.</p>
-        <p><strong>Targeted Reduction in Turnover Due to Structured Development</strong></p>
-        <p>New number of employees without a plan: 30% of 250 employees = 75 employees</p>
-        <p>Estimated retention improvement: 25% reduction in turnover risk.</p>
-        <p>Employees retained due to structured career development: (148 - 75) × 10% = 7 employees retained per year.</p>
-        <p>7 × R150,000 = R1 million prevented cost per year.</p>
+        <button class="accordion">Calculating cost-savings on reducing employee turnover</button>
+        <div class="panel">
+            <p>Estimated Average Employee Salary at SoluGrowth R300,000 per year (~R25,000 per month)</p>
+            <p><strong>Turnover Risk Due to Lack of Structured Development</strong></p>
+            <p>Employees currently without structured development plans: 59% of 250 employees = 148 employees</p>
+            <p>Estimated turnover risk for these employees: Research suggests employees without clear career paths are more likely to leave. Assume 10% annual staff turnover. (<a href="https://www.hrexchangenetwork.com/hr-talent-management/articles/turnover-rates-in-2023-and-how-to-reduce-employee-turnover">HR Exchange Network</a>)</p>
+            <p>Estimated number of employees lost annually due to lack of structured growth: 148 × 10% = 15 employees per year.</p>
+            <p>Estimated cost of replacing an employee: 50% of salary (R150,000 per lost employee). (<a href="https://www.gallup.com/workplace/247391/fixable-problem-costs-businesses-trillion.aspx">Gallup Report</a>)</p>
+            <p><strong>Total turnover cost due to lack of structured development:</strong></p>
+            <p>15 × R150,000 = R2.25 million per year.</p>
+            <p><strong>Targeted Reduction in Turnover Due to Structured Development</strong></p>
+            <p>New number of employees without a plan: 30% of 250 employees = 75 employees</p>
+            <p>Estimated retention improvement: 25% reduction in turnover risk.</p>
+            <p>Employees retained due to structured career development: (148 - 75) × 10% = 7 employees retained per year.</p>
+            <p>7 × R150,000 = R1 million prevented cost per year.</p>
+        </div>
     </div>
 
     <script>
@@ -340,6 +371,20 @@
         function exportROIReport() {
             alert("Export ROI Report functionality to be implemented.");
         }
+
+        // Accordion functionality
+        const accordions = document.querySelectorAll(".accordion");
+        accordions.forEach(accordion => {
+            accordion.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        });
     </script>
 </body>
 </html>
