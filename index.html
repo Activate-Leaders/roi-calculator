@@ -23,6 +23,14 @@
             flex: 1 1 30%;
             box-sizing: border-box;
         }
+        .total-container {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px #ccc;
+            margin-top: 20px;
+        }
         input { width: 80%; padding: 8px; margin: 10px 0; display: block; margin-left: auto; margin-right: auto; }
         button { padding: 10px; width: calc(100% - 20px); background: #0c2654; color: white; border: none; cursor: pointer; margin: 0 10px; }
         button:hover { background: #f0386b; }
@@ -81,8 +89,22 @@
             <div class="result" id="resultTurnover"></div>
         </div>
     </div>
+    
+    <div class="total-container">
+        <h2>Total Company-Wide Savings</h2>
+        <div id="cumulativeTotal">R0</div>
+    </div>
 
     <script>
+        let totalSavings1 = 0;
+        let totalSavings2 = 0;
+        let totalSavings3 = 0;
+
+        function updateCumulativeTotal() {
+            let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
+            document.getElementById("cumulativeTotal").innerText = 'R' + cumulativeTotal.toLocaleString();
+        }
+
         function calculateROI() {
             let salary = parseFloat(document.getElementById("salary").value) * 12; // Convert monthly to annual
             let timeWasted = parseFloat(document.getElementById("timeWasted").value); // Weekly wasted hours
@@ -94,14 +116,15 @@
             let wastedCostPerManager = hourlyRate * annualHoursWasted; // Assuming 40-hour workweek
             let savingsPerManager = wastedCostPerManager * reduction;
             
-            let totalSavings = savingsPerManager * numManagers;
+            totalSavings1 = savingsPerManager * numManagers;
             
             document.getElementById("result").innerHTML = `
                 <p><em>*Takes annual & sick leave into account</em></p>
                 <p>Yearly Cost of Wasted Time per Manager: R${wastedCostPerManager.toLocaleString()}</p>
                 <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
-                <p>Total Company-Wide Savings: R${totalSavings.toLocaleString()}</p>
+                <p>Total Company-Wide Savings: R${totalSavings1.toLocaleString()}</p>
             `;
+            updateCumulativeTotal();
         }
 
         function calculateOversightROI() {
@@ -114,14 +137,15 @@
             let hourlyRateOversight = salary / (52 * 40);
             let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
             let savingsPerManager = oversightCostPerManager * reduction;
-            let totalSavings = savingsPerManager * numManagers;
+            totalSavings2 = savingsPerManager * numManagers;
             
             document.getElementById("resultOversight").innerHTML = `
                 <p><em>*Takes annual & sick leave into account</em></p>
                 <p>Yearly Cost of Oversight per Manager: R${oversightCostPerManager.toLocaleString()}</p>
                 <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
-                <p>Total Company-Wide Savings: R${totalSavings.toLocaleString()}</p>
+                <p>Total Company-Wide Savings: R${totalSavings2.toLocaleString()}</p>
             `;
+            updateCumulativeTotal();
         }
 
         function calculateTurnoverROI() {
@@ -137,12 +161,14 @@
             
             let employeesRetained = employeesLostAnnually * reduction;
             let preventedCost = employeesRetained * replacementCostPerEmployee;
+            totalSavings3 = preventedCost;
             
             document.getElementById("resultTurnover").innerHTML = `
                 <p>Annual Cost of Turnover Due to Lack of Development: R${totalTurnoverCost.toLocaleString()}</p>
                 <p>Employees Retained Through Proactive Development: ${employeesRetained.toLocaleString()}</p>
-                <p>Total Prevented Cost Per Year: R${preventedCost.toLocaleString()}</p>
+                <p>Total Prevented Cost Per Year: R${totalSavings3.toLocaleString()}</p>
             `;
+            updateCumulativeTotal();
         }
     </script>
 </body>
