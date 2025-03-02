@@ -70,7 +70,7 @@
             box-shadow: 2px 2px 10px #ccc;
             margin-top: 20px;
         }
-        input {
+        input, .slider {
             width: 80%;
             padding: 8px;
             margin: 10px 0;
@@ -155,7 +155,8 @@
                 <label>Number of hours per week per leader of time wasted on low-impact tasks:</label>
                 <input type="number" id="timeWasted" value="10">
                 <label>Planned Reduction in Wasted Time (%)</label>
-                <input type="number" id="reduction" value="30">
+                <input type="range" id="reduction" min="0" max="100" value="30" class="slider">
+                <span id="reductionValue">30%</span>
                 <label>Number of Managers:</label>
                 <input type="number" id="numManagers" value="25">
                 <button onclick="calculateROI()">Calculate Savings</button>
@@ -171,7 +172,8 @@
                 <label>Number of hours per week (per leader) spent on oversight:</label>
                 <input type="number" id="oversightTime" value="10">
                 <label>Planned Reduction in Oversight (%):</label>
-                <input type="number" id="reductionOversight" value="30">
+                <input type="range" id="reductionOversight" min="0" max="100" value="30" class="slider">
+                <span id="reductionOversightValue">30%</span>
                 <label>Number of Managers:</label>
                 <input type="number" id="numManagersOversight" value="25">
                 <button onclick="calculateOversightROI()">Calculate Savings</button>
@@ -185,11 +187,14 @@
                 <label>Employee Salary (per month in R):</label>
                 <input type="number" id="salaryTurnover" value="25000">
                 <label>Percentage of Employees Without Development Plans (%):</label>
-                <input type="number" id="employeesWithoutPlans" value="50">
+                <input type="range" id="employeesWithoutPlans" min="0" max="100" value="50" class="slider">
+                <span id="employeesWithoutPlansValue">50%</span>
                 <label>Average Employee Turnover per Year (%):</label>
-                <input type="number" id="turnoverRate" value="5">
+                <input type="range" id="turnoverRate" min="0" max="100" value="5" class="slider">
+                <span id="turnoverRateValue">5%</span>
                 <label>Expected Reduction in Employee Turnover (%):</label>
-                <input type="number" id="reductionTurnover" value="25">
+                <input type="range" id="reductionTurnover" min="0" max="100" value="25" class="slider">
+                <span id="reductionTurnoverValue">25%</span>
                 <label>Number of Total Employees:</label>
                 <input type="number" id="totalEmployees" value="250">
                 <button onclick="calculateTurnoverROI()">Calculate Savings</button>
@@ -252,6 +257,22 @@
             document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
 
+        document.getElementById("reduction").addEventListener("input", function() {
+            document.getElementById("reductionValue").innerText = this.value + "%";
+        });
+        document.getElementById("reductionOversight").addEventListener("input", function() {
+            document.getElementById("reductionOversightValue").innerText = this.value + "%";
+        });
+        document.getElementById("employeesWithoutPlans").addEventListener("input", function() {
+            document.getElementById("employeesWithoutPlansValue").innerText = this.value + "%";
+        });
+        document.getElementById("turnoverRate").addEventListener("input", function() {
+            document.getElementById("turnoverRateValue").innerText = this.value + "%";
+        });
+        document.getElementById("reductionTurnover").addEventListener("input", function() {
+            document.getElementById("reductionTurnoverValue").innerText = this.value + "%";
+        });
+
         let totalSavings1 = 0;
         let totalSavings2 = 0;
         let totalSavings3 = 0;
@@ -262,7 +283,10 @@
 
         function updateCumulativeTotal() {
             let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-            document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+            let cumulativeTotalDiv = document.getElementById("cumulativeTotal");
+            cumulativeTotalDiv.innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+            cumulativeTotalDiv.classList.add('fade-in');
+            setTimeout(() => cumulativeTotalDiv.classList.remove('fade-in'), 500);
         }
 
         function calculateROI() {
@@ -329,17 +353,4 @@
 
             const resultDiv = document.getElementById("resultTurnover");
             resultDiv.innerHTML = `
-                <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
-                <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-                <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
-
-        function exportROIReport() {
-            alert("Export ROI Report functionality to be implemented.");
-        }
-    </script>
-</body>
-</html>
+                <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurn
