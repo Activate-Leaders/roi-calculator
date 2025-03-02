@@ -1,3 +1,6 @@
+Here is the updated code with all total numbers across the calculators using spaces instead of commas between every three digits:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,9 +105,13 @@
         let totalSavings2 = 0;
         let totalSavings3 = 0;
 
+        function formatNumberWithSpaces(number) {
+            return number.toLocaleString('en').replace(/,/g, ' ');
+        }
+
         function updateCumulativeTotal() {
             let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-            document.getElementById("cumulativeTotal").innerText = 'R' + cumulativeTotal.toLocaleString();
+            document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
         }
 
         function calculateROI() {
@@ -122,9 +129,9 @@
             
             document.getElementById("result").innerHTML = `
                 <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Wasted Time per Manager: R${wastedCostPerManager.toLocaleString()}</p>
-                <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
-                <p>Total Company-Wide Savings: R${totalSavings1.toLocaleString()}</p>
+                <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(wastedCostPerManager)}</p>
+                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings1)}</p>
             `;
             updateCumulativeTotal();
         }
@@ -143,9 +150,9 @@
             
             document.getElementById("resultOversight").innerHTML = `
                 <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Oversight per Manager: R${oversightCostPerManager.toLocaleString()}</p>
-                <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
-                <p>Total Company-Wide Savings: R${totalSavings2.toLocaleString()}</p>
+                <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
+                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
             `;
             updateCumulativeTotal();
         }
@@ -166,9 +173,9 @@
             totalSavings3 = preventedCost;
             
             document.getElementById("resultTurnover").innerHTML = `
-                <p>Annual Cost of Turnover Due to Lack of Development: R${totalTurnoverCost.toLocaleString()}</p>
-                <p>Employees Retained Through Proactive Development: ${employeesRetained.toLocaleString()}</p>
-                <p>Total Prevented Cost Per Year: R${totalSavings3.toLocaleString()}</p>
+                <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
+                <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
+                <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
             `;
             updateCumulativeTotal();
         }
