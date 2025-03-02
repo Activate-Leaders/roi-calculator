@@ -16,16 +16,16 @@
 </head>
 <body>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 20px; width: 100%;">
-    <div class="container">
-        <h2>ROI Calculator - Low-Impact Task Reduction <br><small>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (firefighting))</small></h3>
+    <div class="container" style="width: 60%; max-width: 600px;">
+        <h2>ROI Calculator - Low-Impact Task Reduction <br><small>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving \(firefighting\))</small></h2>
         <label>Manager Salary (per month in R):</label>
         <input type="number" id="salary" value="50000">
         
         <label>Number of hours per week per leader of Time Wasted on Low-Impact Tasks:</label>
-        <input type="number" id="timeWasted" value="16">
+        <input type="number" id="timeWasted" value="10">
         
         <label>Planned Reduction in Wasted Time (%)</label>
-        <input type="number" id="reduction" value="20">
+        <input type="number" id="reduction" value="30">
         
         <label>Number of Managers:</label>
         <input type="number" id="numManagers" value="25">
@@ -58,16 +58,16 @@
         }
     </script>
     </div>
-    <div class="container">
-        <h2>ROI Calculator - Task Oversight Reduction <br><small>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</small></h3>
+    <div class="container" style="width: 60%; max-width: 600px;">
+        <h2>ROI Calculator - Task Oversight Reduction <br><small>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</small></h2>
         <label>Manager Salary (per month in R):</label>
         <input type="number" id="salaryOversight" value="50000">
         
         <label>Number of hours per week (per leader) spent on oversight:</label>
-        <input type="number" id="oversightTime" value="35">
+        <input type="number" id="oversightTime" value="10">
         
         <label>Planned Reduction in Oversight (%):</label>
-        <input type="number" id="reductionOversight" value="20">
+        <input type="number" id="reductionOversight" value="30">
         
         <label>Number of Managers:</label>
         <input type="number" id="numManagersOversight" value="25">
@@ -91,24 +91,25 @@
             let totalSavings = savingsPerManager * numManagers;
             
             document.getElementById("resultOversight").innerHTML = `
+                <p><em>*Takes annual & sick leave into account</em></p>
                 <p>Yearly Cost of Oversight per Manager: R${oversightCostPerManager.toLocaleString()}</p>
                 <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
                 <p>Total Company-Wide Savings: R${totalSavings.toLocaleString()}</p>
             `;
         }
     </script>
-    <div class="container">
+    <div class="container" style="width: 60%; max-width: 600px;">
         <h2>ROI Calculator - Employee Turnover Reduction <br><small>(Lack of career growth, unclear development paths, employee disengagement)</small></h2>
         <label>Employee Salary (per month in R):</label>
         <input type="number" id="salaryTurnover" value="25000">
         
-        <label>Number of Employees Without Development Plans:</label>
+        <label>Percentage of Employees Without Development Plans (%):</label>
         <input type="number" id="employeesWithoutPlans" value="148">
         
-        <label>Annual Turnover Rate for These Employees (%):</label>
-        <input type="number" id="turnoverRate" value="10">
+        <label>Average Employee Turnover per Year:</label>
+        <input type="number" id="turnoverRate" value="5">
         
-        <label>Targeted Reduction in Turnover Risk (%):</label>
+        <label>Expected Reduction in Employee Turnover:</label>
         <input type="number" id="reductionTurnover" value="25">
         
         <label>Number of Total Employees:</label>
@@ -122,7 +123,7 @@
     <script>
         function calculateTurnoverROI() {
             let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12; // Convert monthly to annual
-            let employeesWithoutPlans = parseInt(document.getElementById("employeesWithoutPlans").value);
+            let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
             let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
             let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
             let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
