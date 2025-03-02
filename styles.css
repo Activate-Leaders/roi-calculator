@@ -1,1 +1,148 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
 
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background: #f7f7f7;
+    transition: background 0.3s ease;
+}
+
+.tab:hover {
+    background: #eee;
+}
+
+.tab.active {
+    background: white;
+    border-top: 2px solid #0c2654;
+    border-left: 2px solid #0c2654;
+    border-right: 2px solid #0c2654;
+}
+
+.tab-content {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.container {
+    width: 30%;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #ccc;
+    flex: 1 1 30%;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 2px 2px 15px #bbb;
+}
+
+.total-container {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #ccc;
+    margin-top: 20px;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    padding: 10px;
+    width: calc(100% - 20px);
+    background: #0c2654;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #f0386b;
+}
+
+.result {
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.result.show {
+    opacity: 1;
+}
+
+#cumulativeTotal {
+    color: #f0386b;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.sticky {
+    position: sticky;
+    bottom: 20px;
+    background: #0c2654;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: calc(100% - 40px);
+    margin: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.sticky:hover {
+    background: #f0386b;
+}
+
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+    }
+    .container {
+        width: 100%;
+    }
+}
