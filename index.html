@@ -122,8 +122,8 @@
             color: white;
             padding: 10px;
             border: none;
-            width: calc(100% - 40px);
-            margin: 20px;
+            width: auto;
+            margin: 20px auto;
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -386,4 +386,4 @@
                 this.classList.toggle("active");
                 const panel = this.nextElementSibling;
                 if (panel.style.display === "block") {
-                    panel.style.display = "
+                    panel.style.display = "none";
