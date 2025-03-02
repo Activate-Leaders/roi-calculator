@@ -23,6 +23,7 @@
             border-bottom: none;
             background: #f7f7f7;
             transition: background 0.3s ease;
+            border-radius: 5px;
         }
         .tab:hover {
             background: #eee;
@@ -88,6 +89,7 @@
             cursor: pointer;
             margin: 0 10px;
             transition: background 0.3s ease;
+            border-radius: 5px;
         }
         button:hover {
             background: #f0386b;
@@ -169,7 +171,7 @@
 <body>
     <div class="tabs">
         <div class="tab active" onclick="showTab('calculators')">Calculators</div>
-        <div class="tab" onclick="showTab('explanation')">Explanation</div>
+        <div class="tab" onclick="showTab('explanation')">How we calculate ROI</div>
     </div>
 
     <div id="calculators" class="tab-content active">
@@ -233,7 +235,7 @@
     </div>
 
     <div id="explanation" class="tab-content">
-        <h2>How We Calculate ROI</h2>
+        <h2>How we calculate ROI</h2>
         <button class="accordion">Calculating cost-savings for time spent on low-impact work</button>
         <div class="panel">
             <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
@@ -370,4 +372,18 @@
                 <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
             `;
             resultDiv.classList.add('show');
-            update
+            updateCumulativeTotal();
+        }
+
+        function exportROIReport() {
+            alert("Export ROI Report functionality to be implemented.");
+        }
+
+        // Accordion functionality
+        const accordions = document.querySelectorAll(".accordion");
+        accordions.forEach(accordion => {
+            accordion.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "
