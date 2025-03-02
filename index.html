@@ -123,6 +123,7 @@
     <script>
         function calculateTurnoverROI() {
             let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12; // Convert monthly to annual
+            let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
             let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
             let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
             let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
