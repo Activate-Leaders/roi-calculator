@@ -82,7 +82,6 @@
         }
         button {
             padding: 10px;
-            width: calc(100% - 20px);
             background: #0c2654;
             color: white;
             border: none;
@@ -387,3 +386,5 @@
                 const panel = this.nextElementSibling;
                 if (panel.style.display === "block") {
                     panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
