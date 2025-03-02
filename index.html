@@ -60,8 +60,8 @@
     </div>
     <div class="container">
         <h2>ROI Calculator - Task Oversight Reduction</h2>
-        <label>Manager Salary (per year in R):</label>
-        <input type="number" id="salaryOversight" value="600000">
+        <label>Manager Salary (per month in R):</label>
+        <input type="number" id="salaryOversight" value="50000">
         
         <label>Number of hours per week (per leader) spent on oversight:</label>
         <input type="number" id="oversightTime" value="35">
@@ -79,7 +79,7 @@
 
     <script>
         function calculateOversightROI() {
-            let salary = parseFloat(document.getElementById("salaryOversight").value);
+            let salary = parseFloat(document.getElementById("salaryOversight").value) * 12; // Convert monthly to annual
             let oversightTime = parseFloat(document.getElementById("oversightTime").value);
             let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
             let numManagers = parseInt(document.getElementById("numManagersOversight").value);
