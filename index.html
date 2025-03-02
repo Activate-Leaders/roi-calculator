@@ -93,10 +93,12 @@
         .result {
             margin-top: 20px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(20px);
         }
         .result.show {
             opacity: 1;
+            transform: translateY(0);
         }
         #cumulativeTotal {
             color: #f0386b;
@@ -258,7 +260,9 @@
 
         function updateCumulativeTotal() {
             let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-            document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+            const cumulativeTotalDiv = document.getElementById("cumulativeTotal");
+            cumulativeTotalDiv.innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+            cumulativeTotalDiv.classList.add('show');
         }
 
         function calculateROI() {
