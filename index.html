@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROI Calculator - Low-Impact Task Reduction</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        body { font-family: Georgia, serif; text-align: center; padding: 20px; }
         .container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 2px 2px 10px #ccc; }
         input { width: 50%; padding: 8px; margin: 10px 0; display: block; margin-left: auto; margin-right: auto; }
         button { padding: 10px; width: calc(100% - 20px); background: #0c2654; color: white; border: none; cursor: pointer; margin: 0 10px; }
@@ -49,9 +49,9 @@
             
             document.getElementById("result").innerHTML = `
                 <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Wasted Time per Manager: <strong>R${wastedCostPerManager.toLocaleString()}</strong></p>
-                <p>Annual Savings per Manager: <strong>R${savingsPerManager.toLocaleString()}</strong></p>
-                <p>Total Company-Wide Savings: <strong>R${totalSavings.toLocaleString()}</strong></p>
+                <p>Yearly Cost of Wasted Time per Manager: R${wastedCostPerManager.toLocaleString()}</p>
+                <p>Annual Savings per Manager: R${savingsPerManager.toLocaleString()}</p>
+                <p>Total Company-Wide Savings: R${totalSavings.toLocaleString()}</p>
             `;
         }
     </script>
