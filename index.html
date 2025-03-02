@@ -8,7 +8,7 @@
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
         .container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 2px 2px 10px #ccc; }
         input { width: 100%; padding: 8px; margin: 10px 0; }
-        button { padding: 10px; width: 100%; background: #007bff; color: white; border: none; cursor: pointer; }
+        button { padding: 10px; width: calc(100% - 20px); background: #0c2654; color: white; border: none; cursor: pointer; margin: 0 10px; }
         button:hover { background: #0056b3; }
         .result { margin-top: 20px; font-weight: bold; }
     </style>
@@ -22,7 +22,7 @@
         <label>Number of hours per week per leader of Time Wasted on Low-Impact Tasks:</label>
         <input type="number" id="timeWasted" value="16">
         
-        <label>Planned Reduction in Wasted Time (%):</label>
+        <label>Planned Reduction in Wasted Time (%)</label>
         <input type="number" id="reduction" value="20">
         
         <label>Number of Managers:</label>
