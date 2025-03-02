@@ -23,7 +23,6 @@
             border-bottom: none;
             background: #f7f7f7;
             transition: background 0.3s ease;
-            border-radius: 5px;
         }
         .tab:hover {
             background: #eee;
@@ -89,7 +88,6 @@
             cursor: pointer;
             margin: 0 10px;
             transition: background 0.3s ease;
-            border-radius: 5px;
         }
         button:hover {
             background: #f0386b;
@@ -372,14 +370,4 @@
                 <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
             `;
             resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
-
-        function exportROIReport() {
-            alert("Export ROI Report functionality to be implemented.");
-        }
-
-        // Accordion functionality
-        const accordions = document.querySelectorAll(".accordion");
-        accordions.forEach(accordion => {
-            accordion.addEventListener("click", function
+            update
