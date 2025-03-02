@@ -23,6 +23,7 @@
             border-bottom: none;
             background: #f7f7f7;
             transition: background 0.3s ease;
+            border-radius: 10px 10px 0 0; /* Rounded corners for tab buttons */
         }
         .tab:hover {
             background: #eee;
@@ -62,7 +63,7 @@
             box-shadow: 2px 2px 15px #bbb;
         }
         .total-container {
-            width: 100%;
+            width: 20%; /* 2/3 the width of one of the calculator containers */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -130,6 +131,9 @@
             }
             .container {
                 width: 100%;
+            }
+            .total-container {
+                width: 100%; /* Adjust width for mobile */
             }
         }
     </style>
