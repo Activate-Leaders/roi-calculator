@@ -18,7 +18,7 @@ body {
     border-bottom: none;
     background: #f7f7f7;
     transition: background 0.3s ease;
-    color: #0c2654;
+    color: #0c2654; /* Ensure this line is present */
 }
 
 .tab:hover {
