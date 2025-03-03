@@ -145,13 +145,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Line Chart Data
-        const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].map(savings => savings / 36);
+        const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].reduce((acc, savings) => {
+            const monthly = savings / 12;
+            acc.push(monthly);
+            return acc;
+        }, []);
+
         const cumulativeSavings = [];
         let total = 0;
 
-        for (let i = 0; i < 36; i++) {
-            const monthlyGainFactor = i < 18 ? 0.5 : 1.5; // Slower gains in the first half, ramping up in the second half
-            total += monthlySavings.reduce((sum, savings) => sum + (savings * monthlyGainFactor), 0);
+        // Ramp up to total savings by month 12
+        for (let i = 0; i < 12; i++) {
+            total += monthlySavings.reduce((sum, savings) => sum + savings, 0);
+            cumulativeSavings.push(total);
+        }
+
+        // Extrapolate at the same rate over the next 24 months
+        const monthlyRate = total / 12;
+        for (let i = 12; i < 36; i++) {
+            total += monthlyRate;
             cumulativeSavings.push(total);
         }
 
