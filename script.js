@@ -1,99 +1,109 @@
-function showTab(tabId) {
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.tab-content');
+document.addEventListener("DOMContentLoaded", function () {
+    function showTab(tabId) {
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
 
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
 
-            document.querySelector(`#${tabId}`).classList.add('active');
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-        }
+        document.querySelector(`#${tabId}`).classList.add('active');
+        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+    }
 
-        let totalSavings1 = 0;
-        let totalSavings2 = 0;
-        let totalSavings3 = 0;
+    window.showTab = showTab; // Ensure function is available globally
 
-        function formatNumberWithSpaces(number) {
-            return number.toLocaleString('en').replace(/,/g, ' ');
-        }
+    let totalSavings1 = 0;
+    let totalSavings2 = 0;
+    let totalSavings3 = 0;
 
-        function updateCumulativeTotal() {
-            let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-            document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
-        }
+    function formatNumberWithSpaces(number) {
+        return number.toLocaleString('en').replace(/,/g, ' ');
+    }
 
-        function calculateROI() {
-            let salary = parseFloat(document.getElementById("salary").value) * 12; // Convert monthly to annual
-            let timeWasted = parseFloat(document.getElementById("timeWasted").value); // Weekly wasted hours
-            let reduction = parseFloat(document.getElementById("reduction").value) / 100;
-            let numManagers = parseInt(document.getElementById("numManagers").value);
+    function updateCumulativeTotal() {
+        let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
+        document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+    }
 
-            let annualHoursWasted = timeWasted * 52; // Convert weekly hours to annual
-            let hourlyRate = salary / (52 * 40);
-            let wastedCostPerManager = hourlyRate * annualHoursWasted; // Assuming 40-hour workweek
-            let savingsPerManager = wastedCostPerManager * reduction;
+    function calculateROI() {
+        let salary = parseFloat(document.getElementById("salary").value) * 12;
+        let timeWasted = parseFloat(document.getElementById("timeWasted").value);
+        let reduction = parseFloat(document.getElementById("reduction").value) / 100;
+        let numManagers = parseInt(document.getElementById("numManagers").value);
 
-            totalSavings1 = savingsPerManager * numManagers;
+        let annualHoursWasted = timeWasted * 52;
+        let hourlyRate = salary / (52 * 40);
+        let wastedCostPerManager = hourlyRate * annualHoursWasted;
+        let savingsPerManager = wastedCostPerManager * reduction;
 
-            const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `
-                <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(wastedCostPerManager)}</p>
-                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings1)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
+        totalSavings1 = savingsPerManager * numManagers;
 
-        function calculateOversightROI() {
-            let salary = parseFloat(document.getElementById("salaryOversight").value) * 12; // Convert monthly to annual
-            let oversightTime = parseFloat(document.getElementById("oversightTime").value);
-            let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
-            let numManagers = parseInt(document.getElementById("numManagersOversight").value);
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `
+            <p><em>*Takes annual & sick leave into account</em></p>
+            <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(wastedCostPerManager)}</p>
+            <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+            <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings1)}</p>
+        `;
+        resultDiv.classList.add('show');
+        updateCumulativeTotal();
+    }
 
-            let annualHoursOversight = oversightTime * 52;
-            let hourlyRateOversight = salary / (52 * 40);
-            let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
-            let savingsPerManager = oversightCostPerManager * reduction;
-            totalSavings2 = savingsPerManager * numManagers;
+    function calculateOversightROI() {
+        let salary = parseFloat(document.getElementById("salaryOversight").value) * 12;
+        let oversightTime = parseFloat(document.getElementById("oversightTime").value);
+        let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
+        let numManagers = parseInt(document.getElementById("numManagersOversight").value);
 
-            const resultDiv = document.getElementById("resultOversight");
-            resultDiv.innerHTML = `
-                 <p><em>*Takes annual & sick leave into account</em></p>
-                 <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
-                 <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                 <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
+        let annualHoursOversight = oversightTime * 52;
+        let hourlyRateOversight = salary / (52 * 40);
+        let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
+        let savingsPerManager = oversightCostPerManager * reduction;
+        totalSavings2 = savingsPerManager * numManagers;
 
-        function calculateTurnoverROI() {
-            let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12; // Convert monthly to annual
-            let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
-            let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
-            let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
-            let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
+        const resultDiv = document.getElementById("resultOversight");
+        resultDiv.innerHTML = `
+            <p><em>*Takes annual & sick leave into account</em></p>
+            <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
+            <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+            <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
+        `;
+        resultDiv.classList.add('show');
+        updateCumulativeTotal();
+    }
 
-            let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
-            let replacementCostPerEmployee = salary * 0.5;
-            let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
+    function calculateTurnoverROI() {
+        let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12;
+        let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
+        let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
+        let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
+        let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
 
-            let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
-            let preventedCost = employeesRetained * replacementCostPerEmployee;
-            totalSavings3 = preventedCost;
+        let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
+        let replacementCostPerEmployee = salary * 0.5;
+        let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
 
-            const resultDiv = document.getElementById("resultTurnover");
-            resultDiv.innerHTML = `
-                <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
-                <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-                <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
-            `;
-            resultDiv.classList.add('show');
-            updateCumulativeTotal();
-        }
+        let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
+        let preventedCost = employeesRetained * replacementCostPerEmployee;
+        totalSavings3 = preventedCost;
 
-        function exportROIReport() {
-            alert("Export ROI Report functionality to be implemented.");
-        }
+        const resultDiv = document.getElementById("resultTurnover");
+        resultDiv.innerHTML = `
+            <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
+            <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
+            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
+        `;
+        resultDiv.classList.add('show');
+        updateCumulativeTotal();
+    }
+
+    function exportROIReport() {
+        alert("Export ROI Report functionality to be implemented.");
+    }
+
+    // Ensure functions are accessible in HTML
+    window.calculateROI = calculateROI;
+    window.calculateOversightROI = calculateOversightROI;
+    window.calculateTurnoverROI = calculateTurnoverROI;
+    window.exportROIReport = exportROIReport;
+});
