@@ -5,6 +5,13 @@ body {
     background-color: #ffffff;
 }
 
+2 references
+To ensure the logo sits slightly higher and is always in line with the text of the heading banner, you can adjust the CSS as follows:
+
+Update styles.css:
+Modify the .logo class to adjust its position:
+
+CSS
 /* Additional styles for the banner */
 .banner {
     background-color: #ffffff;
@@ -26,6 +33,18 @@ body {
         font-size: 20px;
         padding: 15px;
     }
+}
+
+.tabs {
+    margin-top: 80px; /* Adjust this value if necessary */
+}
+
+.logo {
+    position: fixed;
+    top: 15px; /* Adjust this value to align with the banner text */
+    right: 10px;
+    width: 200px;
+    z-index: 1001;
 }
 
 .tabs {
