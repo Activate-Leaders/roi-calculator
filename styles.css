@@ -1,38 +1,47 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #ffffff;
+/* CSS Variables for colors and fonts */
+:root {
+    --font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --color-primary: #0c2654;
+    --color-secondary: #f0386b;
+    --color-background: #ffffff;
+    --color-border: #ddd;
+    --color-shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* styles for the banner */
+/* Global styles */
+body {
+    font-family: var(--font-family);
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color-background);
+}
+
+/* Banner styles */
 .banner-container {
-    width: 100%; /* Match the width of the tabs */
+    width: 100%;
     display: flex;
-    justify-content: center; /* Center the banner */
-    padding-top: 20px; /* Adjust as necessary */
+    justify-content: center;
+    padding-top: 20px;
 }
 
 .banner {
     display: flex;
-    align-items: center; /* Vertically center the content */
-    background-color: #ffffff;
-    color: #0c2654;
+    align-items: center;
+    background-color: var(--color-background);
+    color: var(--color-primary);
     text-align: center;
     padding: 20px;
     font-size: 24px;
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; /* Ensure this matches the branding font */
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--color-shadow);
     position: fixed;
-    width: auto; /* Make the width auto to fit the content */
     top: 0;
     z-index: 1000;
 }
 
 .logo {
-    margin-right: 10px; /* Space between the logo and text */
-    width: 50px; /* Adjust size as needed */
+    margin-right: 10px;
+    width: 50px;
 }
 
 @media (max-width: 600px) {
@@ -42,28 +51,26 @@ body {
     }
 
     .logo {
-        width: 40px; /* Adjust size for mobile */
+        width: 40px;
     }
 }
 
+/* Tabs styles */
 .tabs {
-    margin-top: 80px; /* Adjust this value if necessary */
-}
-
-.tabs {
+    margin-top: 80px;
     display: flex;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid var(--color-border);
     margin-bottom: 20px;
 }
 
 .tab {
     padding: 10px 20px;
     cursor: pointer;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-bottom: none;
     background: #f7f7f7;
     transition: background 0.3s ease;
-    color: #0c2654; /* Ensure this line is present */
+    color: var(--color-primary);
 }
 
 .tab:hover {
@@ -71,11 +78,11 @@ body {
 }
 
 .tab.active {
-    background: white;
-    border-top: 2px solid #0c2654;
-    border-left: 2px solid #0c2654;
-    border-right: 2px solid #0c2654;
-    color: #0c2654; /* Fix: Ensure text color is correct */
+    background: var(--color-background);
+    border-top: 2px solid var(--color-primary);
+    border-left: 2px solid var(--color-primary);
+    border-right: 2px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 .tab-content {
@@ -87,6 +94,7 @@ body {
     display: block;
 }
 
+/* Flex container styles */
 .flex-container {
     display: flex;
     justify-content: space-between;
@@ -99,7 +107,7 @@ body {
     width: calc(33.333% - 20px);
     max-width: 600px;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     box-shadow: 2px 2px 10px #ccc;
     box-sizing: border-box;
@@ -113,13 +121,14 @@ body {
 .total-container {
     width: 60%;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     box-shadow: 2px 2px 10px #ccc;
-    margin: 20px auto; /* Center the container */
-    text-align: center; /* Center the text inside */
+    margin: 20px auto;
+    text-align: center;
 }
 
+/* Input styles */
 input {
     width: 80%;
     padding: 8px;
@@ -129,10 +138,11 @@ input {
     margin-right: auto;
 }
 
+/* Button styles */
 button {
     padding: 10px;
     width: calc(100% - 20px);
-    background: #0c2654;
+    background: var(--color-primary);
     color: white;
     border: none;
     cursor: pointer;
@@ -141,9 +151,10 @@ button {
 }
 
 button:hover {
-    background: #f0386b;
+    background: var(--color-secondary);
 }
 
+/* Result styles */
 .result {
     margin-top: 20px;
     opacity: 0;
@@ -155,9 +166,10 @@ button:hover {
 }
 
 #cumulativeTotal {
-    color: #f0386b;
+    color: var(--color-secondary);
 }
 
+/* Heading and paragraph styles */
 h2 {
     font-size: 24px;
     font-weight: bold;
@@ -168,22 +180,23 @@ p {
     line-height: 1.6;
 }
 
+/* Sticky footer styles */
 .sticky {
-    position: fixed; /* Change position to fixed */
-    bottom: 0; /* Stick to the bottom of the page */
-    left: 0; /* Stick to the left side */
-    width: 100%; /* Full width */
-    background: #0c2654; /* Background color */
-    color: white; /* Text color */
-    padding: 10px; /* Padding */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--color-primary);
+    color: white;
+    padding: 10px;
     border: none;
-    margin: 0; /* Remove any margin */
-    text-align: center; /* Center align text */
-    z-index: 1000; /* Ensure it is on top */
+    margin: 0;
+    text-align: center;
+    z-index: 1000;
 }
 
 .sticky:hover {
-    background: #f0386b;
+    background: var(--color-secondary);
 }
 
 @media (max-width: 768px) {
@@ -195,6 +208,7 @@ p {
     }
 }
 
+/* Chart container styles */
 .chart-container {
     display: flex;
     justify-content: space-between;
@@ -205,9 +219,9 @@ p {
 .chart {
     flex: 1;
     max-width: 45%;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     padding: 10px;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: var(--color-background);
     box-shadow: 2px 2px 10px #ccc;
 }
