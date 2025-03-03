@@ -29,66 +29,67 @@
         <button class="tab" onclick="showTab('graph')" aria-label="Show Graph">Annual Savings Breakdown</button>
     </nav>
         
-    <section id="calculators" class="tab-content active">
-        <div class="flex-container">
-            <!-- First Calculator -->
-            <article class="container">
-                <h2>ROI Calculator - Low-Impact Task Reduction</h2>
-                <p>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (firefighting))</p>
-                <label for="salary">Manager Salary (per month in R):</label>
-                <input type="number" id="salary" value="50000">
-                <label for="timeWasted">Number of hours per week per leader of time wasted on low-impact tasks:</label>
-                <input type="number" id="timeWasted" value="10">
-                <label for="reduction">Planned Reduction in Wasted Time (%):</label>
-                <input type="number" id="reduction" value="30">
-                <label for="numManagers">Number of Managers:</label>
-                <input type="number" id="numManagers" value="25">
-                <button onclick="calculateROI()">Calculate Savings</button>
-                <div class="result" id="result"></div>
-            </article>
-            
-            <!-- Second Calculator -->
-            <article class="container">
-                <h2>ROI Calculator - Task Oversight Reduction</h2>
-                <p>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</p>
-                <label for="salaryOversight">Manager Salary (per month in R):</label>
-                <input type="number" id="salaryOversight" value="50000">
-                <label for="oversightTime">Number of hours per week (per leader) spent on oversight:</label>
-                <input type="number" id="oversightTime" value="10">
-                <label for="reductionOversight">Planned Reduction in Oversight (%):</label>
-                <input type="number" id="reductionOversight" value="30">
-                <label for="numManagersOversight">Number of Managers:</label>
-                <input type="number" id="numManagersOversight" value="25">
-                <button onclick="calculateOversightROI()">Calculate Savings</button>
-                <div class="result" id="resultOversight"></div>
-            </article>
-            
-            <!-- Third Calculator -->
-            <article class="container">
-                <h2>ROI Calculator - Employee Turnover Reduction</h2>
-                <p>(Lack of career growth, unclear development paths, employee disengagement)</p>
-                <label for="salaryTurnover">Employee Salary (per month in R):</label>
-                <input type="number" id="salaryTurnover" value="25000">
-                <label for="employeesWithoutPlans">Percentage of Employees Without Development Plans (%):</label>
-                <input type="number" id="employeesWithoutPlans" value="50">
-                <label for="turnoverRate">Average Employee Turnover per Year (%):</label>
-                <input type="number" id="turnoverRate" value="5">
-                <label for="reductionTurnover">Expected Reduction in Employee Turnover (%):</label>
-                <input type="number" id="reductionTurnover" value="25">
-                <label for="totalEmployees">Number of Total Employees:</label>
-                <input type="number" id="totalEmployees" value="250">
-                <button onclick="calculateTurnoverROI()">Calculate Savings</button>
-                <div class="result" id="resultTurnover"></div>
-            </article>
-        </div>
+<section id="calculators" class="tab-content active">
+    <div class="flex-container">
+        <!-- First Calculator -->
+        <article class="container">
+            <h2>ROI Calculator - Low-Impact Task Reduction</h2>
+            <p>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (firefighting))</p>
+            <label for="salary">Manager Salary (per month in R):</label>
+            <input type="number" id="salary" value="50000">
+            <label for="timeWasted">Number of hours per week per leader of time wasted on low-impact tasks:</label>
+            <input type="number" id="timeWasted" value="10">
+            <label for="reduction">Planned Reduction in Wasted Time (%):</label>
+            <input type="number" id="reduction" value="30">
+            <label for="numManagers">Number of Managers:</label>
+            <input type="number" id="numManagers" value="25">
+            <button onclick="calculateROI()">Calculate Savings</button>
+            <div class="result" id="result"></div>
+        </article>
+        
+        <!-- Second Calculator -->
+        <article class="container">
+            <h2>ROI Calculator - Task Oversight Reduction</h2>
+            <p>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</p>
+            <label for="salaryOversight">Manager Salary (per month in R):</label>
+            <input type="number" id="salaryOversight" value="50000">
+            <label for="oversightTime">Number of hours per week (per leader) spent on oversight:</label>
+            <input type="number" id="oversightTime" value="10">
+            <label for="reductionOversight">Planned Reduction in Oversight (%):</label>
+            <input type="number" id="reductionOversight" value="30">
+            <label for="numManagersOversight">Number of Managers:</label>
+            <input type="number" id="numManagersOversight" value="25">
+            <button onclick="calculateOversightROI()">Calculate Savings</button>
+            <div class="result" id="resultOversight"></div>
+        </article>
+        
+        <!-- Third Calculator -->
+        <article class="container">
+            <h2>ROI Calculator - Employee Turnover Reduction</h2>
+            <p>(Lack of career growth, unclear development paths, employee disengagement)</p>
+            <label for="salaryTurnover">Employee Salary (per month in R):</label>
+            <input type="number" id="salaryTurnover" value="25000">
+            <label for="employeesWithoutPlans">Percentage of Employees Without Development Plans (%):</label>
+            <input type="number" id="employeesWithoutPlans" value="50">
+            <label for="turnoverRate">Average Employee Turnover per Year (%):</label>
+            <input type="number" id="turnoverRate" value="5">
+            <label for="reductionTurnover">Expected Reduction in Employee Turnover (%):</label>
+            <input type="number" id="reductionTurnover" value="25">
+            <label for="totalEmployees">Number of Total Employees:</label>
+            <input type="number" id="totalEmployees" value="250">
+            <button onclick="calculateTurnoverROI()">Calculate Savings</button>
+            <div class="result" id="resultTurnover"></div>
+        </article>
+    </div>
 
-        <div class="total-container">
-            <h2>Total Company-Wide Savings</h2>
-            <div id="cumulativeTotal">R0</div>
-        </div>
-        <!-- Move the button here -->
-        <button id="generateGraphButton">Generate Savings Graph</button> 
-
+    <div class="total-container">
+        <h2>Total Company-Wide Savings</h2>
+        <div id="cumulativeTotal">R0</div>
+    </div>
+    <!-- Move the button here -->
+    <button id="generateGraphButton">Generate Savings Graph</button>
+</section>
+    
 <section id="explanation" class="tab-content">
     <div class="flex-container">
         <article class="container">
