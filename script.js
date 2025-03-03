@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const contents = document.querySelectorAll('.tab-content');
 
         tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
+        contents.forEach(content => tab.classList.remove('active'));
 
         document.querySelector(`#${tabId}`).classList.add('active');
         document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Line Chart Data
         const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].reduce((acc, savings) => {
-            const monthly = savings;
+            const monthly = savings / 12; // Divide savings by 12 to get monthly savings
             acc.push(monthly);
             return acc;
         }, []);
