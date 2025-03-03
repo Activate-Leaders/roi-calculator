@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const contents = document.querySelectorAll('.tab-content');
 
         tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active')); // Corrected here
 
         document.querySelector(`#${tabId}`).classList.add('active');
         document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
