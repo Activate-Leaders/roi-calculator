@@ -171,16 +171,17 @@ p {
 }
 
 .sticky {
-    position: sticky;
-    bottom: 20px;
-    background: #0c2654;
-    color: white;
-    padding: 10px;
+    position: fixed; /* Change position to fixed */
+    bottom: 0; /* Stick to the bottom of the page */
+    left: 0; /* Stick to the left side */
+    width: 100%; /* Full width */
+    background: #0c2654; /* Background color */
+    color: white; /* Text color */
+    padding: 10px; /* Padding */
     border: none;
-    width: 60%; /* Same width as .total-container */
-    margin: 20px auto; /* Center the button */
-    cursor: pointer;
-    transition: background 0.3s ease;
+    margin: 0; /* Remove any margin */
+    text-align: center; /* Center align text */
+    z-index: 1000; /* Ensure it is on top */
 }
 
 .sticky:hover {
