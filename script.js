@@ -122,7 +122,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const ctx = document.getElementById('savingsChart').getContext('2d');
         if (window.savingsChart) {
-            window.savingsChart.destroy();
+            if (typeof window.savingsChart.destroy === 'function') {
+                window.savingsChart.destroy();
+            }
         }
         window.savingsChart = new Chart(ctx, {
             type: 'bar',
