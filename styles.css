@@ -41,7 +41,7 @@ body {
 
 .logo {
     margin-right: 10px;
-    width: 50px;
+    width: 200px; /* Adjust size to make it 4x bigger */
 }
 
 @media (max-width: 600px) {
@@ -51,7 +51,7 @@ body {
     }
 
     .logo {
-        width: 40px;
+        width: 160px; /* Adjust size for mobile to make it 4x bigger */
     }
 }
 
