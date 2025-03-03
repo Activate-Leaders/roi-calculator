@@ -154,9 +154,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const cumulativeSavings = [];
         let total = 0;
 
-        // Ramp up to total savings by month 12 with a curve
-        for (let i = 0; i < 12; i++) {
-            const factor = i < 6 ? 0.1 * (i + 1) : 0.1 * (12 - i);
+        // Enforce percentage reduction across the first 6 months
+        for (let i = 0; i < 6; i++) {
+            const factor = (i + 1) / 6; // 16.67%, 33.33%, 50%, 66.67%, 83.33%, 100%
+            total += monthlySavings.reduce((sum, savings) => sum + (savings * factor), 0);
+            cumulativeSavings.push(total);
+        }
+
+        // Make up the difference in the next 6 months to hit the total savings amount by month 12
+        for (let i = 6; i < 12; i++) {
+            const factor = (12 - i) / 6; // 100%, 83.33%, 66.67%, 50%, 33.33%, 16.67%
             total += monthlySavings.reduce((sum, savings) => sum + (savings * factor), 0);
             cumulativeSavings.push(total);
         }
