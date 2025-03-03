@@ -109,24 +109,19 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Export ROI Report functionality to be implemented.");
     }
 
-    function updateChart() {
+    function updateCharts() {
         const savingsLowImpact = totalSavings1;
         const savingsOversight = totalSavings2;
         const savingsTurnover = totalSavings3;
 
-        console.log("Updating chart with data:", {
-            savingsLowImpact,
-            savingsOversight,
-            savingsTurnover
-        });
-
-        const ctx = document.getElementById('savingsChart').getContext('2d');
-        if (window.savingsChart) {
-            if (typeof window.savingsChart.destroy === 'function') {
-                window.savingsChart.destroy();
+        // Bar Chart Data
+        const barCtx = document.getElementById('savingsBarChart').getContext('2d');
+        if (window.savingsBarChart) {
+            if (typeof window.savingsBarChart.destroy === 'function') {
+                window.savingsBarChart.destroy();
             }
         }
-        window.savingsChart = new Chart(ctx, {
+        window.savingsBarChart = new Chart(barCtx, {
             type: 'bar',
             data: {
                 labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
@@ -147,7 +142,50 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        console.log("Chart updated successfully");
+        // Line Chart Data
+        const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].map(savings => savings / 12);
+        const cumulativeSavings = [];
+        let total = 0;
+
+        for (let i = 0; i < 12; i++) {
+            const monthlyGainFactor = i < 6 ? 0.5 : 1.5; // Slower gains in the first half, ramping up in the second half
+            total += monthlySavings.reduce((sum, savings) => sum + (savings * monthlyGainFactor), 0);
+            cumulativeSavings.push(total);
+        }
+
+        console.log("Updating charts with data:", {
+            bar: [savingsLowImpact, savingsOversight, savingsTurnover],
+            line: cumulativeSavings
+        });
+
+        const lineCtx = document.getElementById('savingsLineChart').getContext('2d');
+        if (window.savingsLineChart) {
+            if (typeof window.savingsLineChart.destroy === 'function') {
+                window.savingsLineChart.destroy();
+            }
+        }
+        window.savingsLineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: 12 }, (_, i) => `Month ${i + 1}`),
+                datasets: [{
+                    label: 'Cumulative Savings in Rands (R)',
+                    data: cumulativeSavings,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        console.log("Charts updated successfully");
     }
 
     // Ensure functions are accessible in HTML
@@ -159,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add event listener for the new button
     document.getElementById('generateGraphButton').addEventListener('click', function () {
         console.log("Generate Graph button clicked");
-        updateChart();
+        updateCharts();
         showTab('graph');
     });
 });
