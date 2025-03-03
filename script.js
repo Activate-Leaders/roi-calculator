@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.querySelector(`#${tabId}`).classList.add('active');
         document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        
+        console.log(`Tab ${tabId} is now active`);
     }
 
     window.showTab = showTab; // Ensure function is available globally
@@ -38,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         totalSavings1 = savingsPerManager * numManagers;
 
+        console.log(`Total Savings 1: ${totalSavings1}`);
+
         const resultDiv = document.getElementById("result");
         resultDiv.innerHTML = `
             <p><em>*Takes annual & sick leave into account</em></p>
@@ -60,6 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
         let savingsPerManager = oversightCostPerManager * reduction;
         totalSavings2 = savingsPerManager * numManagers;
+
+        console.log(`Total Savings 2: ${totalSavings2}`);
 
         const resultDiv = document.getElementById("resultOversight");
         resultDiv.innerHTML = `
@@ -86,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
         let preventedCost = employeesRetained * replacementCostPerEmployee;
         totalSavings3 = preventedCost;
+
+        console.log(`Total Savings 3: ${totalSavings3}`);
 
         const resultDiv = document.getElementById("resultTurnover");
         resultDiv.innerHTML = `
@@ -136,6 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+
+        console.log("Chart updated successfully");
     }
 
     // Ensure functions are accessible in HTML
@@ -146,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listener for the new button
     document.getElementById('generateGraphButton').addEventListener('click', function () {
+        console.log("Generate Graph button clicked");
         updateChart();
         showTab('graph');
     });
