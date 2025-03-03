@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let totalSavings1 = 0;
     let totalSavings2 = 0;
+    let totalSavings3 = 0;
 
     function formatNumberWithSpaces(number) {
         return number.toLocaleString('en').replace(/,/g, ' ');
@@ -77,6 +78,32 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCumulativeTotal();
     }
 
+    function calculateTurnoverROI() {
+        let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12;
+        let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
+        let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
+        let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
+        let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
+
+        let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
+        let replacementCostPerEmployee = salary * 0.5;
+        let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
+
+        let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
+        let preventedCost = employeesRetained * replacementCostPerEmployee;
+        totalSavings3 = preventedCost;
+
+        console.log(`Total Savings 3: ${totalSavings3}`);
+
+        const resultDiv = document.getElementById("resultTurnover");
+        resultDiv.innerHTML = `
+            <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
+            <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
+            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
+        `;
+        resultDiv.classList.add('show');
+    }
+
     async function exportROIReport() {
         const { jsPDF } = window.jspdf;
 
@@ -108,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateCharts() {
         const savingsLowImpact = totalSavings1;
         const savingsOversight = totalSavings2;
+        const savingsTurnover = totalSavings3;
 
         // Bar Chart Data
         const barCtx = document.getElementById('savingsBarChart')?.getContext('2d');
@@ -120,12 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
             window.savingsBarChart = new Chart(barCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction'],
+                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Turnover Reduction'],
                     datasets: [{
                         label: 'Savings in Rands (R)',
-                        data: [savingsLowImpact, savingsOversight],
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
+                        data: [savingsLowImpact, savingsOversight, savingsTurnover],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
                         borderWidth: 1
                     }]
                 },
@@ -162,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         console.log("Updating charts with data:", {
-            bar: [savingsLowImpact, savingsOversight],
+            bar: [savingsLowImpact, savingsOversight, savingsTurnover],
             line: cumulativeSavings
         });
 
@@ -201,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ensure functions are accessible in HTML
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
+    window.calculateTurnoverROI = calculateTurnoverROI;
     window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
