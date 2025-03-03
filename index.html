@@ -7,91 +7,91 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="tabs">
-        <button class="tab active" onclick="showTab('calculators')">Calculators</button>
-        <button class="tab" onclick="showTab('explanation')">Explanation</button>
+    <nav class="nav-tabs">
+        <button class="tab-button active" onclick="showTab('calculators')">Calculators</button>
+        <button class="tab-button" onclick="showTab('explanation')">Explanation</button>
     </nav>
- 
+
     <section id="calculators" class="tab-content active">
         <div class="flex-container">
             <!-- First Calculator -->
-            <article class="container">
+            <article class="calculator-container">
                 <h2>ROI Calculator - Low-Impact Task Reduction</h2>
                 <p>(Unnecessary meetings, manual or repetitive admin work, reactive problem solving (firefighting))</p>
-                <label>Manager Salary (per month in R):</label>
-                <input type="number" id="salary" value="50000">
-                <label>Number of hours per week per leader of time wasted on low-impact tasks:</label>
-                <input type="number" id="timeWasted" value="10">
-                <label>Planned Reduction in Wasted Time (%)</label>
-                <input type="number" id="reduction" value="30">
-                <label>Number of Managers:</label>
-                <input type="number" id="numManagers" value="25">
+                <label for="manager-salary">Manager Salary (per month in R):</label>
+                <input type="number" id="manager-salary" value="50000">
+                <label for="time-wasted">Number of hours per week per leader of time wasted on low-impact tasks:</label>
+                <input type="number" id="time-wasted" value="10">
+                <label for="time-reduction">Planned Reduction in Wasted Time (%)</label>
+                <input type="number" id="time-reduction" value="30">
+                <label for="number-of-managers">Number of Managers:</label>
+                <input type="number" id="number-of-managers" value="25">
                 <button onclick="calculateROI()">Calculate Savings</button>
                 <div class="result" id="result"></div>
             </article>
- 
+
             <!-- Second Calculator -->
-            <article class="container">
+            <article class="calculator-container">
                 <h2>ROI Calculator - Task Oversight Reduction</h2>
-                <p>(Monitoring & check-ins, non-essential decision making, Over-Involvement in Execution)</p>
-                <label>Manager Salary (per month in R):</label>
-                <input type="number" id="salaryOversight" value="50000">
-                <label>Number of hours per week (per leader) spent on oversight:</label>
-                <input type="number" id="oversightTime" value="10">
-                <label>Planned Reduction in Oversight (%):</label>
-                <input type="number" id="reductionOversight" value="30">
-                <label>Number of Managers:</label>
-                <input type="number" id="numManagersOversight" value="25">
+                <p>(Monitoring & check-ins, non-essential decision making, over-involvement in execution)</p>
+                <label for="oversight-salary">Manager Salary (per month in R):</label>
+                <input type="number" id="oversight-salary" value="50000">
+                <label for="oversight-time">Number of hours per week (per leader) spent on oversight:</label>
+                <input type="number" id="oversight-time" value="10">
+                <label for="oversight-reduction">Planned Reduction in Oversight (%):</label>
+                <input type="number" id="oversight-reduction" value="30">
+                <label for="number-of-managers-oversight">Number of Managers:</label>
+                <input type="number" id="number-of-managers-oversight" value="25">
                 <button onclick="calculateOversightROI()">Calculate Savings</button>
-                <div class="result" id="resultOversight"></div>
+                <div class="result" id="result-oversight"></div>
             </article>
- 
+
             <!-- Third Calculator -->
-            <article class="container">
+            <article class="calculator-container">
                 <h2>ROI Calculator - Employee Turnover Reduction</h2>
                 <p>(Lack of career growth, unclear development paths, employee disengagement)</p>
-                <label>Employee Salary (per month in R):</label>
-                <input type="number" id="salaryTurnover" value="25000">
-                <label>Percentage of Employees Without Development Plans (%):</label>
-                <input type="number" id="employeesWithoutPlans" value="50">
-                <label>Average Employee Turnover per Year (%):</label>
-                <input type="number" id="turnoverRate" value="5">
-                <label>Expected Reduction in Employee Turnover (%):</label>
-                <input type="number" id="reductionTurnover" value="25">
-                <label>Number of Total Employees:</label>
-                <input type="number" id="totalEmployees" value="250">
+                <label for="employee-salary">Employee Salary (per month in R):</label>
+                <input type="number" id="employee-salary" value="25000">
+                <label for="employees-without-plans">Percentage of Employees Without Development Plans (%):</label>
+                <input type="number" id="employees-without-plans" value="50">
+                <label for="turnover-rate">Average Employee Turnover per Year (%):</label>
+                <input type="number" id="turnover-rate" value="5">
+                <label for="turnover-reduction">Expected Reduction in Employee Turnover (%):</label>
+                <input type="number" id="turnover-reduction" value="25">
+                <label for="total-employees">Number of Total Employees:</label>
+                <input type="number" id="total-employees" value="250">
                 <button onclick="calculateTurnoverROI()">Calculate Savings</button>
-                <div class="result" id="resultTurnover"></div>
+                <div class="result" id="result-turnover"></div>
             </article>
         </div>
- 
+
         <div class="total-container">
             <h2>Total Company-Wide Savings</h2>
-            <div id="cumulativeTotal">R0</div>
+            <div id="cumulative-total">R0</div>
         </div>
-        <button class="sticky" onclick="exportROIReport()">Export ROI Report</button>
+        <button class="button-sticky" onclick="exportROIReport()">Export ROI Report</button>
     </section>
- 
+
     <section id="explanation" class="tab-content">
         <h2>How We Calculate ROI</h2>
         <p><strong>Calculating cost-savings for time spent on low-impact work:</strong></p>
         <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Low-Impact Tasks (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-manage">McKinsey Insights</a>)</p>
+        <p>Time Spent on Low-Impact Tasks (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/stop-wasting-your-most-precious-resource-middle-manage">McKinsey Insight</a>)</p>
         <p><strong>Targeted Reduction in Low-Impact Work</strong></p>
         <p>20% reduction in time spent on low-value tasks.</p>
         <p>20% of R240,000 = R48,000 saved per manager per year.</p>
         <p><strong>Company-Wide Gains</strong></p>
         <p>Across 25 managers, total savings from reducing time spent on low-impact work = R1.2 million per year in reduced time wasted.</p>
- 
+
         <p><strong>Calculating cost-savings for time spent on unnecessary oversight:</strong></p>
         <p>Estimated Average Manager Salary at SoluGrowth R600,000 per year (~R50,000 per month)</p>
-        <p>Time Spent on Task Oversight (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees">McKinsey Insights</a>)</p>
+        <p>Time Spent on Task Oversight (<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/for-smarter-decisions-empower-your-employees">McKinsey Insight</a>)</p>
         <p><strong>Targeted Reduction in Oversight</strong></p>
         <p>20% improvement in team execution means managers spend 20% less time on oversight.</p>
         <p>20% of R210,000 = R42,000 saved per manager per year.</p>
         <p><strong>Company-Wide Gains</strong></p>
         <p>Across 25 managers, total savings from improved team execution results in R1 million saved per year in recovered productivity. (R42,000 × 25 managers)</p>
- 
+
         <p><strong>Calculating cost-savings on reducing employee turnover:</strong></p>
         <p>Estimated Average Employee Salary at SoluGrowth R300,000 per year (~R25,000 per month)</p>
         <p><strong>Turnover Risk Due to Lack of Structured Development</strong></p>
@@ -108,6 +108,6 @@
         <p>7 × R150,000 = R1 million prevented cost per year.</p>
     </section>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
