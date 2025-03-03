@@ -19,6 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
     }
 
+    // Function to show tab
+    function showTab(tabId) {
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        document.querySelector(`#${tabId}`).classList.add('active');
+        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+    }
+
     // Generic function to calculate savings
     function calculateSavings(params) {
         let salary = parseFloat(document.getElementById(params.salaryId).value) * 12;
@@ -196,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Ensure functions are accessible in HTML
+    window.showTab = showTab;
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
     window.calculateTurnoverROI = calculateTurnoverROI;
