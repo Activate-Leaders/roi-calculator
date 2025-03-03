@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Line Chart Data
         const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].reduce((acc, savings) => {
-            const monthly = savings / 12;
+            const monthly = savings;
             acc.push(monthly);
             return acc;
         }, []);
@@ -154,14 +154,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const cumulativeSavings = [];
         let total = 0;
 
-        // Ramp up to total savings by month 12
+        // Ramp up to total savings by month 12 with a curve
         for (let i = 0; i < 12; i++) {
-            total += monthlySavings.reduce((sum, savings) => sum + savings, 0);
+            const factor = i < 6 ? 0.1 * (i + 1) : 0.1 * (12 - i);
+            total += monthlySavings.reduce((sum, savings) => sum + (savings * factor), 0);
             cumulativeSavings.push(total);
         }
 
         // Extrapolate at the same rate over the next 24 months
-        const monthlyRate = total / 12;
+        const monthlyRate = cumulativeSavings[11] - cumulativeSavings[10];
         for (let i = 12; i < 36; i++) {
             total += monthlyRate;
             cumulativeSavings.push(total);
