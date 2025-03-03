@@ -211,13 +211,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add scroll event listener for the banner
     let lastScrollTop = 0;
     const banner = document.querySelector('.banner-container');
-    
+    const stickyButton = document.querySelector('.sticky');
+
     window.addEventListener('scroll', function () {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         if (scrollTop > lastScrollTop) {
             banner.style.top = '-80px'; // Adjust based on banner height
+            stickyButton.style.bottom = '-80px'; // Hide the button
         } else {
             banner.style.top = '0';
+            stickyButton.style.bottom = '0'; // Show the button
         }
         lastScrollTop = scrollTop;
     });
