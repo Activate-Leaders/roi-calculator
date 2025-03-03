@@ -6,14 +6,6 @@ body {
 }
 
 /* styles for the banner */
-2 references
-To make the logo sit in-line with the text of the banner, you can adjust the CSS as follows:
-
-Update styles.css:
-Modify the .logo class to adjust its position:
-
-CSS
-/* Additional styles for the banner */
 .banner {
     background-color: #ffffff;
     color: #0c2654;
@@ -42,7 +34,7 @@ CSS
 
 .logo {
     position: fixed;
-    top: 20px; /* Adjust this value to align with the banner text */
+    top: 15px; /* Adjust this value to align with the banner text */
     right: 10px;
     width: 200px;
     z-index: 1001;
