@@ -32,6 +32,7 @@ body {
 .banner {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center the text */
     color: var(--color-primary);
     text-align: center;
     padding: 20px;
@@ -44,7 +45,7 @@ body {
 
 .logo {
     margin-right: 10px;
-    width: 50px; /* Adjust size */
+    width: 120px; /* Adjust size as needed */
 }
 
 @media (max-width: 600px) {
