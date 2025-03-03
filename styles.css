@@ -30,6 +30,7 @@ body {
     border-top: 2px solid #0c2654;
     border-left: 2px solid #0c2654;
     border-right: 2px solid #0c2654;
+    color: #0c2654; /* Fix: Ensure text color is correct */
 }
 
 .tab-content {
