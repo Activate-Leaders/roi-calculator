@@ -5,6 +5,25 @@ body {
     background-color: #ffffff;
 }
 
+/* Additional styles for the banner */
+.banner {
+    background-color: #ffffff;
+    color: #0c2654;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    .banner {
+        font-size: 20px;
+        padding: 15px;
+    }
+}
+
 .tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
