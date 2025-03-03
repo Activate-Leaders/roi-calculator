@@ -8,7 +8,12 @@ function updateCharts() {
     const savingsOversight = totalSavings2;
     const savingsTurnover = totalSavings3;
 
-    const barCtx = document.getElementById('savingsBarChart').getContext('2d');
+    const barCtx = document.getElementById('savingsBarChart')?.getContext('2d');
+    if (!barCtx) {
+        alert("Bar chart context not found.");
+        return;
+    }
+
     if (window.savingsBarChart) {
         if (typeof window.savingsBarChart.destroy === 'function') {
             window.savingsBarChart.destroy();
@@ -45,7 +50,12 @@ function updateCharts() {
         cumulativeSavings.push(total);
     }
 
-    const lineCtx = document.getElementById('savingsLineChart').getContext('2d');
+    const lineCtx = document.getElementById('savingsLineChart')?.getContext('2d');
+    if (!lineCtx) {
+        alert("Line chart context not found.");
+        return;
+    }
+
     if (window.savingsLineChart) {
         if (typeof window.savingsLineChart.destroy === 'function') {
             window.savingsLineChart.destroy();
