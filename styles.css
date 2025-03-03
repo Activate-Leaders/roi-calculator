@@ -12,7 +12,7 @@ body {
     text-align: center;
     padding: 20px;
     font-size: 24px;
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; /* Ensure this matches the branding font */
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: fixed;
