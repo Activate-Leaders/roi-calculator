@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-        updateChart();
     }
 
     function calculateOversightROI() {
@@ -71,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-        updateChart();
     }
 
     function calculateTurnoverROI() {
@@ -97,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-        updateChart();
     }
 
     function exportROIReport() {
@@ -108,6 +105,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const savingsLowImpact = totalSavings1;
         const savingsOversight = totalSavings2;
         const savingsTurnover = totalSavings3;
+
+        console.log("Updating chart with data:", {
+            savingsLowImpact,
+            savingsOversight,
+            savingsTurnover
+        });
 
         const ctx = document.getElementById('savingsChart').getContext('2d');
         if (window.savingsChart) {
@@ -140,4 +143,10 @@ document.addEventListener("DOMContentLoaded", function () {
     window.calculateOversightROI = calculateOversightROI;
     window.calculateTurnoverROI = calculateTurnoverROI;
     window.exportROIReport = exportROIReport;
+
+    // Add event listener for the new button
+    document.getElementById('generateGraphButton').addEventListener('click', function () {
+        updateChart();
+        showTab('graph');
+    });
 });
