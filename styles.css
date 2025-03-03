@@ -147,3 +147,20 @@ p {
         width: 100%;
     }
 }
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+.chart {
+    flex: 1;
+    max-width: 45%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px #ccc;
+}
