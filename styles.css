@@ -18,10 +18,11 @@ body {
 
 /* Banner styles */
 .banner-container {
+    position: fixed;
+    top: 0;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
+    z-index: 1000;
+    transition: top 0.3s;
 }
 
 .banner {
