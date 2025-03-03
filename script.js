@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
+        updateChart();
     }
 
     function calculateOversightROI() {
@@ -70,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
+        updateChart();
     }
 
     function calculateTurnoverROI() {
@@ -95,10 +97,42 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
+        updateChart();
     }
 
     function exportROIReport() {
         alert("Export ROI Report functionality to be implemented.");
+    }
+
+    function updateChart() {
+        const savingsLowImpact = totalSavings1;
+        const savingsOversight = totalSavings2;
+        const savingsTurnover = totalSavings3;
+
+        const ctx = document.getElementById('savingsChart').getContext('2d');
+        if (window.savingsChart) {
+            window.savingsChart.destroy();
+        }
+        window.savingsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
+                datasets: [{
+                    label: 'Savings in Rands (R)',
+                    data: [savingsLowImpact, savingsOversight, savingsTurnover],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
     // Ensure functions are accessible in HTML
