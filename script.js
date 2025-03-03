@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
 
-        tabs.forEach((tab) => tab.classList.remove('active'));
+        tabs.forEach(tab => tab.classList.remove('active'));
         contents.forEach(content => content.classList.remove('active'));
 
         document.querySelector(`#${tabId}`).classList.add('active');
         document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-
+        
         console.log(`Tab ${tabId} is now active`);
     }
 
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateCumulativeTotal() {
-        let cumulativeTotal = totalSavings1 + totalSavings2;
+        let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
         document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
     }
 
@@ -102,46 +102,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
         `;
         resultDiv.classList.add('show');
+        updateCumulativeTotal();
     }
 
-    async function exportROIReport() {
-        const { jsPDF } = window.jspdf;
-
-        // Dynamically load html2canvas if not already loaded
-        if (typeof html2canvas === 'undefined') {
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js';
-            document.head.appendChild(script);
-
-            await new Promise((resolve, reject) => {
-                script.onload = resolve;
-                script.onerror = reject;
-            });
-        }
-
-        const pdf = new jsPDF({ orientation: 'landscape' });
-
-        // Helper function to add content of a tab to the PDF
-        const addTabContentToPDF = async (tabId, pageTitle) => {
-            showTab(tabId);
-            await new Promise(resolve => setTimeout(resolve, 500)); // Wait for the tab to render
-
-            const element = document.querySelector(`#${tabId}`);
-            pdf.text(pageTitle, 10, 10);
-            await pdf.html(element, { x: 10, y: 20 });
-            pdf.addPage('landscape');
-        };
-
-        // Add each tab content to the PDF
-        await addTabContentToPDF('calculators', 'ROI Calculators');
-        await addTabContentToPDF('explanation', 'How We Calculate ROI');
-        await addTabContentToPDF('graph', 'Annual Savings Breakdown');
-
-        // Remove the last empty page
-        pdf.deletePage(pdf.getNumberOfPages());
-
-        // Save the PDF
-        pdf.save('ROI_Report.pdf');
+    function exportROIReport() {
+        alert("Export ROI Report functionality to be implemented.");
     }
 
     function updateCharts() {
@@ -160,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.savingsBarChart = new Chart(barCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Turnover Reduction'],
+                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
                     datasets: [{
                         label: 'Savings in Rands (R)',
                         data: [savingsLowImpact, savingsOversight, savingsTurnover],
@@ -179,25 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // Calculate the worth of 2 hours of time per leader
-        const hourlyRate = parseFloat(document.getElementById("salary").value) * 12 / (52 * 40);
-        const hourReduction = 2 * hourlyRate * parseInt(document.getElementById("numManagers").value);
-
         // Line Chart Data
-        const monthlySavings = [savingsLowImpact, savingsOversight].map(savings => savings / 12);
+        const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].map(savings => savings / 36);
         const cumulativeSavings = [];
         let total = 0;
 
-        // Apply dynamic 2-hour reduction for the first 12 months
-        for (let i = 0; i < 12; i++) {
-            const adjustedSavings = monthlySavings.map(savings => savings - hourReduction);
-            total += adjustedSavings.reduce((sum, savings) => sum + savings, 0);
-            cumulativeSavings.push(total);
-        }
-
-        // No reduction from month 13 onwards
-        for (let i = 12; i < 36; i++) {
-            total += monthlySavings.reduce((sum, savings) => sum + savings, 0);
+        for (let i = 0; i < 36; i++) {
+            const monthlyGainFactor = i < 18 ? 0.5 : 1.5; // Slower gains in the first half, ramping up in the second half
+            total += monthlySavings.reduce((sum, savings) => sum + (savings * monthlyGainFactor), 0);
             cumulativeSavings.push(total);
         }
 
@@ -241,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ensure functions are accessible in HTML
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
-    window.calculateTurnoverROI = calculateTurnoverROI; // Ensure the function is accessible globally
+    window.calculateTurnoverROI = calculateTurnoverROI;
     window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
