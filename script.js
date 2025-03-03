@@ -110,32 +110,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateCharts() {
-    const savingsLowImpact = totalSavings1;
-    const savingsOversight = totalSavings2;
-    const savingsTurnover = totalSavings3;
-
-    // Calculate hourly salary of a manager
     const salary = parseFloat(document.getElementById("salary").value) * 12;
     const numManagers = parseInt(document.getElementById("numManagers").value);
+    const timeSavedPerMonth = parseFloat(document.getElementById("timeSavedPerMonth").value); // New input field for time saved per month per leader
     const hourlyRate = salary / (52 * 40);
-    const monthlyReduction = hourlyRate * 2 * numManagers;
 
-    // Bar Chart Data
-    const barCtx = document.getElementById('savingsBarChart').getContext('2d');
-    if (window.savingsBarChart) {
-        if (typeof window.savingsBarChart.destroy === 'function') {
-            window.savingsBarChart.destroy();
+    const monthlySavings = numManagers * timeSavedPerMonth * hourlyRate;
+    const monthlyOffset = numManagers * 2 * hourlyRate;
+    const cumulativeSavings = [];
+    let total = 0;
+
+    for (let i = 0; i < 36; i++) { // 36 months for 3 years
+        if (i < 12) {
+            total += monthlySavings - monthlyOffset;
+        } else {
+            total += monthlySavings;
+        }
+        cumulativeSavings.push(total);
+    }
+
+    console.log("Updating charts with data:", {
+        line: cumulativeSavings
+    });
+
+    const lineCtx = document.getElementById('savingsLineChart').getContext('2d');
+    if (window.savingsLineChart) {
+        if (typeof window.savingsLineChart.destroy === 'function') {
+            window.savingsLineChart.destroy();
         }
     }
-    window.savingsBarChart = new Chart(barCtx, {
-        type: 'bar',
+    window.savingsLineChart = new Chart(lineCtx, {
+        type: 'line',
         data: {
-            labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
+            labels: Array.from({ length: 36 }, (_, i) => `Month ${i + 1}`),
             datasets: [{
-                label: 'Savings in Rands (R)',
-                data: [savingsLowImpact, savingsOversight, savingsTurnover],
-                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                label: 'Cumulative Savings in Rands (R)',
+                data: cumulativeSavings,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         },
@@ -147,6 +159,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    console.log("Charts updated successfully");
+}
 
     // Line Chart Data
     const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].map(savings => savings / 12);
