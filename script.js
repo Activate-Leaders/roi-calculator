@@ -16,14 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let totalSavings1 = 0;
     let totalSavings2 = 0;
-    let totalSavings3 = 0;
 
     function formatNumberWithSpaces(number) {
         return number.toLocaleString('en').replace(/,/g, ' ');
     }
 
     function updateCumulativeTotal() {
-        let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
+        let cumulativeTotal = totalSavings1 + totalSavings2;
         document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
     }
 
@@ -73,33 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
             <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
             <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
-        `;
-        resultDiv.classList.add('show');
-        updateCumulativeTotal();
-    }
-
-    function calculateTurnoverROI() {
-        let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12;
-        let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
-        let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
-        let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
-        let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
-
-        let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
-        let replacementCostPerEmployee = salary * 0.5;
-        let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
-
-        let employeesRetained = Math.ceil(employeesLostAnnually * reduction);
-        let preventedCost = employeesRetained * replacementCostPerEmployee;
-        totalSavings3 = preventedCost;
-
-        console.log(`Total Savings 3: ${totalSavings3}`);
-
-        const resultDiv = document.getElementById("resultTurnover");
-        resultDiv.innerHTML = `
-            <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
-            <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
@@ -229,7 +201,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ensure functions are accessible in HTML
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
-    window.calculateTurnoverROI = calculateTurnoverROI;
     window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
