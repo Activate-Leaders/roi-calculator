@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
             showTab(tabId);
             await new Promise(resolve => setTimeout(resolve, 500)); // Wait for the tab to render
 
-            const tabContent = document.querySelector(`#${tabId}`).innerHTML;
+            const element = document.querySelector(`#${tabId}`);
             pdf.text(pageTitle, 10, 10);
-            pdf.fromHTML(tabContent, 10, 20);
+            await pdf.html(element, { x: 10, y: 20 });
             pdf.addPage('landscape');
         };
 
