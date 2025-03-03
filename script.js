@@ -136,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateCharts() {
         const savingsLowImpact = totalSavings1;
         const savingsOversight = totalSavings2;
-        const savingsTurnover = totalSavings3;
 
         // Bar Chart Data
         const barCtx = document.getElementById('savingsBarChart')?.getContext('2d');
@@ -149,12 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
             window.savingsBarChart = new Chart(barCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
+                    labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction'],
                     datasets: [{
                         label: 'Savings in Rands (R)',
-                        data: [savingsLowImpact, savingsOversight, savingsTurnover],
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                        data: [savingsLowImpact, savingsOversight],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
                         borderWidth: 1
                     }]
                 },
@@ -168,14 +167,18 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
+        // Calculate the worth of 2 hours of time per leader
+        const hourlyRate = parseFloat(document.getElementById("salary").value) * 12 / (52 * 40);
+        const hourReduction = 2 * hourlyRate * parseInt(document.getElementById("numManagers").value);
+
         // Line Chart Data
-        const monthlySavings = [savingsLowImpact, savingsOversight, savingsTurnover].map(savings => savings / 12);
+        const monthlySavings = [savingsLowImpact, savingsOversight].map(savings => savings / 12);
         const cumulativeSavings = [];
         let total = 0;
 
-        // Apply 4-hour reduction for the first 12 months
+        // Apply dynamic 2-hour reduction for the first 12 months
         for (let i = 0; i < 12; i++) {
-            const adjustedSavings = monthlySavings.map(savings => savings - (4 * savings / totalSavings1));
+            const adjustedSavings = monthlySavings.map(savings => savings - hourReduction);
             total += adjustedSavings.reduce((sum, savings) => sum + savings, 0);
             cumulativeSavings.push(total);
         }
@@ -187,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         console.log("Updating charts with data:", {
-            bar: [savingsLowImpact, savingsOversight, savingsTurnover],
+            bar: [savingsLowImpact, savingsOversight],
             line: cumulativeSavings
         });
 
