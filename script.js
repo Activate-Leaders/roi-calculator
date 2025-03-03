@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
     }
 
-    window.calculateROI = function calculateROI() {
+    function calculateROI() {
         let salary = parseFloat(document.getElementById("salary").value) * 12;
         let timeWasted = parseFloat(document.getElementById("timeWasted").value);
         let reduction = parseFloat(document.getElementById("reduction").value) / 100;
@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-    };
+    }
 
-    window.calculateOversightROI = function calculateOversightROI() {
+    function calculateOversightROI() {
         let salary = parseFloat(document.getElementById("salaryOversight").value) * 12;
         let oversightTime = parseFloat(document.getElementById("oversightTime").value);
         let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
@@ -76,9 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-    };
+    }
 
-    window.calculateTurnoverROI = function calculateTurnoverROI() {
+    function calculateTurnoverROI() {
         let salary = parseFloat(document.getElementById("salaryTurnover").value) * 12;
         let totalEmployees = parseInt(document.getElementById("totalEmployees").value);
         let employeesWithoutPlans = (parseFloat(document.getElementById("employeesWithoutPlans").value) / 100) * totalEmployees;
@@ -103,11 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
-    };
+    }
 
-    window.exportROIReport = function exportROIReport() {
+    function exportROIReport() {
         alert("Export ROI Report functionality to be implemented.");
-    };
+    }
 
     function updateCharts() {
         const savingsLowImpact = totalSavings1;
@@ -193,7 +193,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Ensure functions are accessible in HTML
-    window.updateCharts = updateCharts;
+    window.calculateROI = calculateROI;
+    window.calculateOversightROI = calculateOversightROI;
+    window.calculateTurnoverROI = calculateTurnoverROI;
+    window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
     document.getElementById('generateGraphButton').addEventListener('click', function () {
