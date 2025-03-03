@@ -1,81 +1,89 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function showTab(tabId) {
-        const tabs = document.querySelectorAll('.tab');
-        const contents = document.querySelectorAll('.tab-content');
+    // Constants
+    const WEEKS_IN_YEAR = 52;
+    const HOURS_IN_WEEK = 40;
 
-        tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
-
-        document.querySelector(`#${tabId}`).classList.add('active');
-        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-
-        console.log(`Tab ${tabId} is now active`);
-    }
-
-    window.showTab = showTab; // Ensure function is available globally
-
+    // Initialize total savings
     let totalSavings1 = 0;
     let totalSavings2 = 0;
     let totalSavings3 = 0;
 
+    // Function to format number with spaces
     function formatNumberWithSpaces(number) {
         return number.toLocaleString('en').replace(/,/g, ' ');
     }
 
+    // Function to update cumulative total
     function updateCumulativeTotal() {
         let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
         document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
     }
 
-    function calculateROI() {
-        let salary = parseFloat(document.getElementById("salary").value) * 12;
-        let timeWasted = parseFloat(document.getElementById("timeWasted").value);
-        let reduction = parseFloat(document.getElementById("reduction").value) / 100;
-        let numManagers = parseInt(document.getElementById("numManagers").value);
+    // Generic function to calculate savings
+    function calculateSavings(params) {
+        let salary = parseFloat(document.getElementById(params.salaryId).value) * 12;
+        let time = parseFloat(document.getElementById(params.timeId).value);
+        let reduction = parseFloat(document.getElementById(params.reductionId).value) / 100;
+        let numManagers = parseInt(document.getElementById(params.numManagersId).value);
 
-        let annualHoursWasted = timeWasted * 52;
-        let hourlyRate = salary / (52 * 40);
-        let wastedCostPerManager = hourlyRate * annualHoursWasted;
-        let savingsPerManager = wastedCostPerManager * reduction;
+        // Error handling for invalid inputs
+        if (isNaN(salary) || isNaN(time) || isNaN(reduction) || isNaN(numManagers)) {
+            alert("Please enter valid numbers for all fields.");
+            return;
+        }
 
-        totalSavings1 = savingsPerManager * numManagers;
+        let annualHours = time * WEEKS_IN_YEAR;
+        let hourlyRate = salary / (WEEKS_IN_YEAR * HOURS_IN_WEEK);
+        let costPerManager = hourlyRate * annualHours;
+        let savingsPerManager = costPerManager * reduction;
 
-        console.log(`Total Savings 1: ${totalSavings1}`);
+        let totalSavings = savingsPerManager * numManagers;
 
-        const resultDiv = document.getElementById("result");
-        resultDiv.innerHTML = `
-            <p><em>*Takes annual & sick leave into account</em></p>
-            <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(wastedCostPerManager)}</p>
-            <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-            <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings1)}</p>
-        `;
+        if (params.savingsIndex === 1) {
+            totalSavings1 = totalSavings;
+        } else if (params.savingsIndex === 2) {
+            totalSavings2 = totalSavings;
+        } else if (params.savingsIndex === 3) {
+            totalSavings3 = totalSavings;
+        }
+
+        const resultDiv = document.getElementById(params.resultId);
+        resultDiv.innerHTML = params.resultHTML(costPerManager, savingsPerManager, totalSavings);
         resultDiv.classList.add('show');
         updateCumulativeTotal();
     }
 
+    // Specific calculation functions
+    function calculateROI() {
+        calculateSavings({
+            salaryId: "salary",
+            timeId: "timeWasted",
+            reductionId: "reduction",
+            numManagersId: "numManagers",
+            resultId: "result",
+            savingsIndex: 1,
+            resultHTML: (costPerManager, savingsPerManager, totalSavings) => `
+                <p><em>*Takes annual & sick leave into account</em></p>
+                <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(costPerManager)}</p>
+                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings)}</p>`
+        });
+    }
+
     function calculateOversightROI() {
-        let salary = parseFloat(document.getElementById("salaryOversight").value) * 12;
-        let oversightTime = parseFloat(document.getElementById("oversightTime").value);
-        let reduction = parseFloat(document.getElementById("reductionOversight").value) / 100;
-        let numManagers = parseInt(document.getElementById("numManagersOversight").value);
-
-        let annualHoursOversight = oversightTime * 52;
-        let hourlyRateOversight = salary / (52 * 40);
-        let oversightCostPerManager = hourlyRateOversight * annualHoursOversight;
-        let savingsPerManager = oversightCostPerManager * reduction;
-        totalSavings2 = savingsPerManager * numManagers;
-
-        console.log(`Total Savings 2: ${totalSavings2}`);
-
-        const resultDiv = document.getElementById("resultOversight");
-        resultDiv.innerHTML = `
-            <p><em>*Takes annual & sick leave into account</em></p>
-            <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(oversightCostPerManager)}</p>
-            <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-            <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings2)}</p>
-        `;
-        resultDiv.classList.add('show');
-        updateCumulativeTotal();
+        calculateSavings({
+            salaryId: "salaryOversight",
+            timeId: "oversightTime",
+            reductionId: "reductionOversight",
+            numManagersId: "numManagersOversight",
+            resultId: "resultOversight",
+            savingsIndex: 2,
+            resultHTML: (costPerManager, savingsPerManager, totalSavings) => `
+                <p><em>*Takes annual & sick leave into account</em></p>
+                <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(costPerManager)}</p>
+                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings)}</p>`
+        });
     }
 
     function calculateTurnoverROI() {
@@ -85,6 +93,12 @@ document.addEventListener("DOMContentLoaded", function () {
         let turnoverRate = parseFloat(document.getElementById("turnoverRate").value) / 100;
         let reduction = parseFloat(document.getElementById("reductionTurnover").value) / 100;
 
+        // Error handling for invalid inputs
+        if (isNaN(salary) || isNaN(totalEmployees) || isNaN(employeesWithoutPlans) || isNaN(turnoverRate) || isNaN(reduction)) {
+            alert("Please enter valid numbers for all fields.");
+            return;
+        }
+
         let employeesLostAnnually = employeesWithoutPlans * turnoverRate;
         let replacementCostPerEmployee = salary * 0.5;
         let totalTurnoverCost = employeesLostAnnually * replacementCostPerEmployee;
@@ -93,31 +107,24 @@ document.addEventListener("DOMContentLoaded", function () {
         let preventedCost = employeesRetained * replacementCostPerEmployee;
         totalSavings3 = preventedCost;
 
-        console.log(`Total Savings 3: ${totalSavings3}`);
-
         const resultDiv = document.getElementById("resultTurnover");
         resultDiv.innerHTML = `
             <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
             <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>
-        `;
+            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>`;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
     }
 
-    function exportROIReport() {
-        alert("Export ROI Report functionality to be implemented.");
-    }
-
+    // Function to update charts
     function updateCharts() {
         const savingsLowImpact = totalSavings1;
         const savingsOversight = totalSavings2;
         const savingsTurnover = totalSavings3;
 
-        // Calculate hourly salary of a manager
         const salary = parseFloat(document.getElementById("salary").value) * 12;
         const numManagers = parseInt(document.getElementById("numManagers").value);
-        const hourlyRate = salary / (52 * 40);
+        const hourlyRate = salary / (WEEKS_IN_YEAR * HOURS_IN_WEEK);
         const monthlyReduction = hourlyRate * 2 * numManagers;
 
         // Bar Chart Data
@@ -154,16 +161,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let total = 0;
 
         for (let i = 0; i < 12; i++) {
-            const monthlyGainFactor = i < 6 ? 0.5 : 1.5; // Slower gains in the first half, ramping up in the second half
+            const monthlyGainFactor = i < 6 ? 0.5 : 1.5; 
             const totalMonthlySavings = monthlySavings.reduce((sum, savings) => sum + (savings * monthlyGainFactor), 0);
             total += totalMonthlySavings - monthlyReduction;
             cumulativeSavings.push(total);
         }
-
-        console.log("Updating charts with data:", {
-            bar: [savingsLowImpact, savingsOversight, savingsTurnover],
-            line: cumulativeSavings
-        });
 
         const lineCtx = document.getElementById('savingsLineChart').getContext('2d');
         if (window.savingsLineChart) {
@@ -191,31 +193,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-
-        console.log("Charts updated successfully");
     }
 
     // Ensure functions are accessible in HTML
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
     window.calculateTurnoverROI = calculateTurnoverROI;
-    window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
     document.getElementById('generateGraphButton').addEventListener('click', function () {
-        console.log("Generate Graph button clicked");
         updateCharts();
         showTab('graph');
     });
 
-   // Add scroll event listener for the banner
+    // Add scroll event listener for the banner
     let lastScrollTop = 0;
     const banner = document.querySelector('.banner-container');
 
     window.addEventListener('scroll', function () {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         if (scrollTop > lastScrollTop) {
-            banner.style.top = '-80px'; // Adjust based on banner height
+            banner.style.top = '-80px';
         } else {
             banner.style.top = '0';
         }
