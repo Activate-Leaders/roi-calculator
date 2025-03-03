@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ensure functions are accessible in HTML
     window.calculateROI = calculateROI;
     window.calculateOversightROI = calculateOversightROI;
-    window.calculateTurnoverROI = calculateTurnoverROI;
+    window.calculateTurnoverROI = calculateTurnoverROI; // Ensure the function is accessible globally
     window.exportROIReport = exportROIReport;
 
     // Add event listener for the new button
