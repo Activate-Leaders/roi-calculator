@@ -33,9 +33,9 @@ body {
 }
 
 .logo {
-    position: fixed;
-    top: 15px; /* Adjust this value to align with the banner text */
-    right: 10px;
+    position: static;
+    margin-top: 20px; /* Adjust this value to align with the banner text */
+    display: block;
     width: 200px;
     z-index: 1001;
 }
