@@ -107,6 +107,18 @@ document.addEventListener("DOMContentLoaded", function () {
     async function exportROIReport() {
         const { jsPDF } = window.jspdf;
 
+        // Dynamically load html2canvas if not already loaded
+        if (typeof html2canvas === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js';
+            document.head.appendChild(script);
+
+            await new Promise((resolve, reject) => {
+                script.onload = resolve;
+                script.onerror = reject;
+            });
+        }
+
         const pdf = new jsPDF({ orientation: 'landscape' });
 
         // Helper function to add content of a tab to the PDF
