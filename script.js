@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const contents = document.querySelectorAll('.tab-content');
 
         tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
 
         document.querySelector(`#${tabId}`).classList.add('active');
         document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
@@ -163,10 +163,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Make up the difference in the next 6 months to hit the total savings amount by month 12
         for (let i = 6; i < 12; i++) {
-            const factor = (12 - i) / 6; // 100%, 83.33%, 66.67%, 50%, 33.33%, 16.67%
+            const factor = 1 - ((i - 6 + 1) / 6); // 100%, 83.33%, 66.67%, 50%, 33.33%, 16.67%
             total += monthlySavings.reduce((sum, savings) => sum + (savings * factor), 0);
             cumulativeSavings.push(total);
         }
+
+        // Ensure the final value at month 12 is correct
+        cumulativeSavings[11] = savingsLowImpact + savingsOversight + savingsTurnover;
 
         // Extrapolate at the same rate over the next 24 months
         const monthlyRate = cumulativeSavings[11] - cumulativeSavings[10];
