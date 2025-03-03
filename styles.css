@@ -148,3 +148,29 @@ p {
         width: 100%;
     }
 }
+/* New CSS for explanation containers */
+#explanation .flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#explanation .container {
+    flex: 1 1 calc(33% - 10px);
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#explanation .container h2 {
+    margin-top: 0;
+}
+
+#explanation .container a {
+    display: block;
+    margin-bottom: 10px;
+}
