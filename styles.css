@@ -18,31 +18,33 @@ body {
 
 /* Banner styles */
 .banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
     position: fixed;
     top: 0;
-    width: 100%;
     z-index: 1000;
     transition: top 0.3s;
+    background-color: var(--color-background);
 }
 
 .banner {
     display: flex;
     align-items: center;
-    background-color: var(--color-background);
     color: var(--color-primary);
     text-align: center;
     padding: 20px;
     font-size: 24px;
     font-weight: bold;
+    width: 100%;
+    max-width: 1200px; /* Adjust based on your layout */
     box-shadow: 0 4px 8px var(--color-shadow);
-    position: fixed;
-    top: 0;
-    z-index: 1000;
 }
 
 .logo {
     margin-right: 10px;
-    width: 200px; /* Adjust size to make it 4x bigger */
+    width: 50px; /* Adjust size */
 }
 
 @media (max-width: 600px) {
@@ -58,7 +60,7 @@ body {
 
 /* Tabs styles */
 .tabs {
-    margin-top: 80px;
+    margin-top: 120px; /* Adjust based on banner height */
     display: flex;
     border-bottom: 2px solid var(--color-border);
     margin-bottom: 20px;
@@ -183,17 +185,17 @@ p {
 
 /* Sticky footer styles */
 .sticky {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
-    width: 50%;
+    width: 100%;
     background: var(--color-primary);
     color: white;
     padding: 10px;
     border: none;
-    margin: 0;
     text-align: center;
     z-index: 1000;
+    transition: bottom 0.3s;
 }
 
 .sticky:hover {
