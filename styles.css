@@ -5,14 +5,7 @@ body {
     background-color: #ffffff;
 }
 
-2 references
-To ensure the logo sits slightly higher and is always in line with the text of the heading banner, you can adjust the CSS as follows:
-
-Update styles.css:
-Modify the .logo class to adjust its position:
-
-CSS
-/* Additional styles for the banner */
+/* styles for the banner */
 .banner {
     background-color: #ffffff;
     color: #0c2654;
@@ -184,8 +177,8 @@ p {
     color: white;
     padding: 10px;
     border: none;
-    width: calc(100% - 40px);
-    margin: 20px;
+    width: 60%; /* Same width as .total-container */
+    margin: 20px auto; /* Center the button */
     cursor: pointer;
     transition: background 0.3s ease;
 }
