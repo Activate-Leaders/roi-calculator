@@ -3,26 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate ROI for reducing low-impact tasks, task oversight, and employee turnover.">
+    <meta name="keywords" content="ROI, Calculator, Low-Impact Tasks, Task Oversight, Employee Turnover">
     <title>ROI Calculator - Low-Impact Task Reduction</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .banner {
-            background-color: #ffffff;
-            color: #0c2654;
-            text-align: center;
-            padding: 20px;
-            font-size: 24px;
-            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        @media (max-width: 600px) {
-            .banner {
-                font-size: 20px;
-                padding: 15px;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Banner -->
@@ -30,10 +14,11 @@
         Activate Leaders ROI Calculator
     </div>
     <nav class="tabs">
-        <button class="tab active" onclick="showTab('calculators')">Calculators</button>
-        <button class="tab" onclick="showTab('explanation')">How we calculate ROI</button>
-        <button class="tab" onclick="showTab('graph')">Annual Savings Breakdown</button>
+        <button class="tab active" onclick="showTab('calculators')" aria-label="Show Calculators">Calculators</button>
+        <button class="tab" onclick="showTab('explanation')" aria-label="Show Explanation">How we calculate ROI</button>
+        <button class="tab" onclick="showTab('graph')" aria-label="Show Graph">Annual Savings Breakdown</button>
     </nav>
+</body>
 
 <a href="https://activateleaders.co" target="_blank">
   <img src="Activate Leaders Logo (png).png" alt="Activate Leaders Logo" style="position: absolute; top: 10px; right: 10px; width: 200px;">
