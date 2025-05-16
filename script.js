@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const resultDiv = document.getElementById("resultTurnover");
         resultDiv.innerHTML = `
             <p>Annual Cost of Turnover Due to Lack of Development: $${formatNumberWithSpaces(totalTurnoverCost)}</p>
-            <p>Employees Retained Through Proactive Development: $${formatNumberWithSpaces(employeesRetained)}</p>
+            <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
             <p>Total Prevented Cost Per Year: $${formatNumberWithSpaces(totalSavings3)}</p>`;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
