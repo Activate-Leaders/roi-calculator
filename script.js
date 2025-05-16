@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to update cumulative total
     function updateCumulativeTotal() {
         let cumulativeTotal = totalSavings1 + totalSavings2 + totalSavings3;
-        document.getElementById("cumulativeTotal").innerText = 'R' + formatNumberWithSpaces(cumulativeTotal);
+        document.getElementById("cumulativeTotal").innerText = '$' + formatNumberWithSpaces(cumulativeTotal);
     }
 
     // Function to show tab
@@ -76,9 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
             savingsIndex: 1,
             resultHTML: (costPerManager, savingsPerManager, totalSavings) => `
                 <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Wasted Time per Manager: R${formatNumberWithSpaces(costPerManager)}</p>
-                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings)}</p>`
+                <p>Yearly Cost of Wasted Time per Manager: $${formatNumberWithSpaces(costPerManager)}</p>
+                <p>Annual Savings per Manager: $${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: $${formatNumberWithSpaces(totalSavings)}</p>`
         });
     }
 
@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
             savingsIndex: 2,
             resultHTML: (costPerManager, savingsPerManager, totalSavings) => `
                 <p><em>*Takes annual & sick leave into account</em></p>
-                <p>Yearly Cost of Oversight per Manager: R${formatNumberWithSpaces(costPerManager)}</p>
-                <p>Annual Savings per Manager: R${formatNumberWithSpaces(savingsPerManager)}</p>
-                <p>Total Company-Wide Savings: R${formatNumberWithSpaces(totalSavings)}</p>`
+                <p>Yearly Cost of Oversight per Manager: $${formatNumberWithSpaces(costPerManager)}</p>
+                <p>Annual Savings per Manager: $${formatNumberWithSpaces(savingsPerManager)}</p>
+                <p>Total Company-Wide Savings: $${formatNumberWithSpaces(totalSavings)}</p>`
         });
     }
 
@@ -121,9 +121,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const resultDiv = document.getElementById("resultTurnover");
         resultDiv.innerHTML = `
-            <p>Annual Cost of Turnover Due to Lack of Development: R${formatNumberWithSpaces(totalTurnoverCost)}</p>
-            <p>Employees Retained Through Proactive Development: ${formatNumberWithSpaces(employeesRetained)}</p>
-            <p>Total Prevented Cost Per Year: R${formatNumberWithSpaces(totalSavings3)}</p>`;
+            <p>Annual Cost of Turnover Due to Lack of Development: $${formatNumberWithSpaces(totalTurnoverCost)}</p>
+            <p>Employees Retained Through Proactive Development: $${formatNumberWithSpaces(employeesRetained)}</p>
+            <p>Total Prevented Cost Per Year: $${formatNumberWithSpaces(totalSavings3)}</p>`;
         resultDiv.classList.add('show');
         updateCumulativeTotal();
     }
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data: {
                 labels: ['Low-Impact Work Reduction', 'Task Oversight Reduction', 'Employee Turnover Reduction'],
                 datasets: [{
-                    label: 'Savings in Rands (R)',
+                    label: 'Savings in USD ($)',
                     data: [savingsLowImpact, savingsOversight, savingsTurnover],
                     backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
                     borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data: {
                 labels: Array.from({ length: 12 }, (_, i) => `Month ${i + 1}`),
                 datasets: [{
-                    label: 'Cumulative Savings in Rands (R)',
+                    label: 'Cumulative Savings in USD ($)',
                     data: cumulativeSavings,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
